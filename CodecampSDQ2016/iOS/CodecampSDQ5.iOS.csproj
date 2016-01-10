@@ -90,9 +90,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodecampSDQ2016\CodecampSDQ2016.csproj">
+    <ProjectReference Include="..\CodecampSDQ2016\CodecampSDQ5.csproj">
       <Project>{1E6A35FB-F04C-4E2D-9883-2450D35E58FE}</Project>
-      <Name>CodecampSDQ2016</Name>
+      <Name>CodecampSDQ5</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

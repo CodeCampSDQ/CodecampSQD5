@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ2016", "CodecampSDQ2016\CodecampSDQ2016.csproj", "{1E6A35FB-F04C-4E2D-9883-2450D35E58FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ5", "CodecampSDQ2016\CodecampSDQ5.csproj", "{1E6A35FB-F04C-4E2D-9883-2450D35E58FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ2016.iOS", "iOS\CodecampSDQ2016.iOS.csproj", "{779EE3AB-AC32-4584-8CD4-AE82202AFA1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ5.iOS", "iOS\CodecampSDQ5.iOS.csproj", "{779EE3AB-AC32-4584-8CD4-AE82202AFA1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ2016.Droid", "Droid\CodecampSDQ2016.Droid.csproj", "{59465FC3-D3CA-48B5-A5F0-FBB3259BD06A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodecampSDQ5.Droid", "Droid\CodecampSDQ5.Droid.csproj", "{59465FC3-D3CA-48B5-A5F0-FBB3259BD06A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
