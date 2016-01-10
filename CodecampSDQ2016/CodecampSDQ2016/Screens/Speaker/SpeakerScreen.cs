@@ -28,7 +28,7 @@ namespace CodecampSDQ2016
 				((ListView)sender).SelectedItem = null;
 			};
 
-			listView.SetBinding<SpeakerViewModel>(ListView.ItemsSourceProperty, m => m.Sessions);
+			listView.SetBinding<SpeakerViewModel>(ListView.ItemsSourceProperty, m => m.Speakers);
 
 			return listView;
 		}

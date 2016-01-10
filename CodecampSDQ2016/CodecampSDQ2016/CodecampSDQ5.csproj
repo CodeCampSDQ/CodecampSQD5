@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="App.cs" />
     <Compile Include="Framework\Screen.cs" />
     <Compile Include="Framework\ViewModelBase.cs" />
     <Compile Include="Screens\HomeScreen\Homescreen.cs" />
@@ -40,6 +39,11 @@
     <Compile Include="Screens\Speaker\SpeakerViewModel.cs" />
     <Compile Include="Screens\Speaker\SpeakerViewCell.cs" />
     <Compile Include="Screens\HomeScreen\HomeViewModel.cs" />
+    <Compile Include="Screens\Sessions\SessionScreen.cs" />
+    <Compile Include="Screens\Sessions\SessionViewCell.cs" />
+    <Compile Include="Screens\Sessions\SessionViewModel.cs" />
+    <Compile Include="Shared\Speaker.cs" />
+    <Compile Include="CodeCampSDQApp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
@@ -72,5 +76,6 @@
     <Folder Include="Shared\" />
     <Folder Include="Services\" />
     <Folder Include="Screens\Speaker\" />
+    <Folder Include="Screens\Sessions\" />
   </ItemGroup>
 </Project>

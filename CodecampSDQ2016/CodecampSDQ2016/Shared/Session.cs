@@ -4,7 +4,7 @@ namespace CodecampSDQ2016
 {
 	public class Session
 	{
-		public string BackgroundImage { get; set; }
+		public string Charla { get; set; }
 
 		public string Charlista { get; set; }
 

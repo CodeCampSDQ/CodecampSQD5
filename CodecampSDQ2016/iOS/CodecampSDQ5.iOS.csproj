@@ -119,5 +119,6 @@
     <BundleResource Include="Resources\luis%402x.png" />
     <BundleResource Include="Resources\claudio%402x.png" />
     <BundleResource Include="Resources\gregorex%402x.png" />
+    <BundleResource Include="Resources\sd%402x.png" />
   </ItemGroup>
 </Project>

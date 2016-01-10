@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace CodecampSDQ2016
 {
-	public class App : Application
+	public class CodeCampSDQApp : Application
 	{
-		public App ()
+		public CodeCampSDQApp ()
 		{
 			MainPage = new HomeScreen();
 		}

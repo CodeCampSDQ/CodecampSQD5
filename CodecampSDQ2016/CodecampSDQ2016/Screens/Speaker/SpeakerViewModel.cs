@@ -7,7 +7,7 @@ namespace CodecampSDQ2016
 {
 	public class SpeakerViewModel : ViewModelBase
 	{
-		public ObservableCollection<Session> Sessions { get; set; }
+		public ObservableCollection<Speaker> Speakers { get; set; }
 
 		public SpeakerViewModel ()
 		{
@@ -16,35 +16,27 @@ namespace CodecampSDQ2016
 
 		public override void NavigateTo ()
 		{
-			Sessions = new ObservableCollection<Session>
+			Speakers = new ObservableCollection<Speaker>
 			{
-				new Session
+				new Speaker
 				{
-					Charlista = "Pinedax",
-					Hora = DateTime.Today.AddMinutes(240),
-					Lugar = "Sala 10",
-					BackgroundImage = "pineda"
+					Name = "Pinedax",
+					FaceBackground = "pineda"
 				},
-				new Session
+				new Speaker
 				{
-					Charlista = "Luis Ramirez",
-					Hora = DateTime.Today.AddMinutes(120),
-					Lugar = "Sala 03",
-					BackgroundImage = "luis"
+					Name = "Luis Ramirez",
+					FaceBackground = "luis"
 				},
-				new Session
+				new Speaker
 				{
-					Charlista = "Claudio Sanchez",
-					Hora = DateTime.Today.AddMinutes(40),
-					Lugar = "Sala 01",
-					BackgroundImage = "claudio"
+					Name = "Claudio Sanchez",
+					FaceBackground = "claudio"
 				},
-				new Session
+				new Speaker
 				{
-					Charlista = "Jose Gregorio",
-					Hora = DateTime.Today.AddMinutes(60),
-					Lugar = "Sala 06",
-					BackgroundImage = "gregorex"
+					Name = "Jose Gregorio",
+					FaceBackground = "gregorex"
 				}
 			};
 		}
