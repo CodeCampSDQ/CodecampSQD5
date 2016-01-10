@@ -48,6 +48,10 @@
     <Compile Include="Screens\Sessions\SessionViewModel.cs" />
     <Compile Include="Shared\Speaker.cs" />
     <Compile Include="CodeCampSDQApp.cs" />
+    <Compile Include="Shared\Sponsor.cs" />
+    <Compile Include="Screens\Sponsors\SponsorScreen.cs" />
+    <Compile Include="Screens\Sponsors\SponsorCellViewCell.cs" />
+    <Compile Include="Screens\Sponsors\SponsorViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
@@ -120,6 +124,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Screens\" />
+    <Folder Include="Framework\" />
+    <Folder Include="Screens\HomeScreen\" />
+    <Folder Include="Shared\" />
+    <Folder Include="Services\" />
+    <Folder Include="Screens\Speaker\" />
+    <Folder Include="Screens\Sessions\" />
+    <Folder Include="Screens\Sponsors\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
