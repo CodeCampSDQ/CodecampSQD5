@@ -15,12 +15,12 @@ namespace CodecampSDQ2016
 		{
 			var builder = new RelativeBuilder();
 
-			var background = new Image
+			var face = new Image
 			{
 				Aspect = Aspect.AspectFill
 			};
 
-			background.SetBinding<Session>(Image.SourceProperty, m => m.BackgroundImage);
+			face.SetBinding<Speaker>(Image.SourceProperty, m => m.FaceBackground);
 
 			var shim = new BoxView
 			{
@@ -34,25 +34,10 @@ namespace CodecampSDQ2016
 				FontSize = 26
 			};
 
-			charlista.SetBinding<Session>(Label.TextProperty, m => m.Charlista);
-
-			var lugar = new Label
-			{
-				TextColor = Color.White
-			};
-
-			lugar.SetBinding<Session>(Label.TextProperty, m => m.Lugar);
-
-			var hora = new Label
-			{
-				TextColor = Color.White,
-				FontSize = 12
-			};
-
-			hora.SetBinding<Session>(Label.TextProperty, m => m.Hora);
+			charlista.SetBinding<Speaker>(Label.TextProperty, m => m.Name);
 
 			builder
-				.AddView(background)
+				.AddView(face)
 				.ExpandViewToParentXY();
 
 			builder
@@ -62,18 +47,6 @@ namespace CodecampSDQ2016
 			builder
 				.AddView(charlista)
 				.AlignParentCenterXY();
-
-			builder
-				.AddView(lugar)
-				.BelowOf(charlista)
-				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,32,0,0));
-
-			builder
-				.AddView(hora)
-				.AlignTop(lugar)
-				.AlignParentRight()
-				.WithPadding(new Thickness(0,4,12,0));
 
 			return builder.BuildLayout();
 		}

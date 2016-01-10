@@ -13,10 +13,10 @@ namespace CodecampSDQ2016.iOS
 		{
 			global::Xamarin.Forms.Forms.Init ();
 
-			LoadApplication (new App ());
-
-			UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = UIColor.White});
-
+			LoadApplication (new CodeCampSDQApp ());
+//
+//			UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = UIColor.White});
+//
 			return base.FinishedLaunching (app, options);
 		}
 	}

@@ -13,7 +13,7 @@ namespace CodecampSDQ2016
 		{
 			Tabs = new ObservableCollection<ContentPage>
 			{
-				new ContentPage () { Title = "Sesiones" , Icon = "globe"},
+				new SessionScreen () { Title = "Sesiones" , Icon = "globe"},
 				new SpeakerScreen () { Title = "Charlista" , Icon = "globe" },
 				new ContentPage () { Title = "Sponsors" , Icon = "globe" },
 				new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"}
