@@ -9,6 +9,8 @@ namespace CodecampSDQ2016
 	{
 		public ObservableCollection<Speaker> Speakers { get; set; }
 
+		public bool PullToRefreshEnabled { get; set; }
+
 		public SpeakerViewModel ()
 		{
 			
@@ -16,6 +18,8 @@ namespace CodecampSDQ2016
 
 		public override void NavigateTo ()
 		{
+			PullToRefreshEnabled = true;
+
 			Speakers = new ObservableCollection<Speaker>
 			{
 				new Speaker

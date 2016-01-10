@@ -9,6 +9,8 @@ namespace CodecampSDQ2016
 	{
 		public ObservableCollection<Session> Sessions { get; set; }
 
+		public bool PullToRefreshEnabled { get; set; }
+
 		public string Header { get; set; }
 
 		public string HeaderTitle { get; set; }
@@ -22,6 +24,8 @@ namespace CodecampSDQ2016
 
 		public override void NavigateTo ()
 		{
+			PullToRefreshEnabled = true;
+
 			Header = "sd";
 
 			HeaderTitle = "SESSIONS";
@@ -32,30 +36,30 @@ namespace CodecampSDQ2016
 			{
 				new Session
 				{
-					Charla = "Discutir primeros pasos para un Developer que quiere trabajar como freelancer",
+					Charla = "SKILLS EVERY STARTUP TEAM NEEDS",
 					Charlista = "Pinedax",
-					Hora = DateTime.Today.AddMinutes(240),
+					HoraInicio = string.Format("{0}:{1}", "09","30"),
 					Lugar = "Sala 10"
 				},
 				new Session
 				{
-					Charla = "Nuestro miedo a cambiar de trabajo y ambiente que nos estanca",
+					Charla = "SAMBA 4.0 COMO ACTIVE DIRECTORY",
 					Charlista = "Luis Ramirez",
-					Hora = DateTime.Today.AddMinutes(120),
+					HoraInicio = string.Format("{0}:{1}", "08","30"),
 					Lugar = "Sala 03"
 				},
 				new Session
 				{
-					Charla = "Breve explicación del acrónimo S.O.L.I.D",
+					Charla = "REFACTORING: KEEPING YOUR CODE HEALTHY",
 					Charlista = "Claudio Sanchez",
-					Hora = DateTime.Today.AddMinutes(40),
+					HoraInicio = string.Format("{0}:{1}", "11","30"),
 					Lugar = "Sala 01"
 				},
 				new Session
 				{
-					Charla = "Esta charla resalta el importante rol que jugamos los developers en el desarrollo eCommerce",
+					Charla = "DESARROLLO RÁPIDO EN RAILS",
 					Charlista = "Jose Gregorio",
-					Hora = DateTime.Today.AddMinutes(60),
+					HoraInicio = string.Format("{0}:{1}", "12","30"),
 					Lugar = "Sala 06"
 				}
 			};

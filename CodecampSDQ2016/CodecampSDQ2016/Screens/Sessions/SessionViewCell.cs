@@ -18,7 +18,8 @@ namespace CodecampSDQ2016
 			var charlista = new Label
 			{
 				FontAttributes = FontAttributes.Bold,
-				FontSize = 18
+				FontSize = 18,
+				TextColor = Color.Black
 			};
 
 			charlista.SetBinding<Session>(Label.TextProperty, m => m.Charlista);
@@ -26,7 +27,16 @@ namespace CodecampSDQ2016
 			var sessionName = new Label
 			{
 				TextColor = Color.Black,
-				FontSize = 18
+				FontSize = 14
+			};
+
+			var sessionNameContainer = new StackLayout
+			{
+				Padding = new Thickness(0,0,16,0),
+				Children = 
+				{
+					sessionName
+				}
 			};
 
 			sessionName.SetBinding<Session>(Label.TextProperty, m => m.Charla);
@@ -40,25 +50,27 @@ namespace CodecampSDQ2016
 
 			var hora = new Label
 			{
-				TextColor = Color.Black,
-				FontSize = 12
+				TextColor = Color.Gray,
+				FontSize = 14
 			};
 
-			hora.SetBinding<Session>(Label.TextProperty, m => m.Hora);
+			hora.SetBinding<Session>(Label.TextProperty, m => m.HoraInicio);
 
 			builder
 				.AddView(charlista)
-				.WithPadding(new Thickness(16,16,0,4));
+				.WithPadding(new Thickness(16,12,0,4));
 			
 			builder
-				.AddView(sessionName)
+				.AddView(sessionNameContainer)
 				.BelowOf(charlista)
-				.WithPadding(new Thickness(16,8,0,0));
+				.ExpandViewToParentWidth()
+				.AlignLeft(charlista)
+				.WithPadding(new Thickness(0,8,0,0));
 
 			builder
 				.AddView(lugar)
-				.BelowOf(sessionName)
-				.AlignLeft(sessionName)
+				.BelowOf(sessionNameContainer)
+				.AlignLeft(sessionNameContainer)
 				.WithPadding(new Thickness(0,10,0,0));
 			
 			builder

@@ -42,8 +42,10 @@ namespace CodecampSDQ2016
 			var listView = new ListView
 			{
 				ItemTemplate = new DataTemplate(typeof(SessionViewCell)),
-				RowHeight = 140
+				RowHeight = 100
 			};
+
+			listView.SetBinding<SessionViewModel>(ListView.IsPullToRefreshEnabledProperty, m => m.PullToRefreshEnabled);
 
 			listView.ItemSelected += (sender, e) => 
 			{
@@ -55,7 +57,7 @@ namespace CodecampSDQ2016
 
 			listView.SetBinding<SessionViewModel>(ListView.ItemsSourceProperty, m => m.Sessions);
 
-			return new RelativeBuilder()
+			var content = new RelativeBuilder()
 				.AddView(image)
 				.ExpandViewToParentWidth()
 				.AddView(headerTitle)
@@ -65,10 +67,19 @@ namespace CodecampSDQ2016
 				.BelowOf(headerTitle)
 				.AlignParentCenterHorizontal()
 				.WithPadding(new Thickness(0,12,0,0))
-				.AddView(listView)
-				.WithPadding(new Thickness(0,16,0,0))
-				.BelowOf(image)
+				.ApplyConfiguration((p,v)=>{
+					p.HeightRequest = 200;
+				})
 				.BuildLayout();
+			
+			return new StackLayout
+			{
+				Children = 
+				{
+					content,
+					listView
+				}
+			};
 		}
 	}
 

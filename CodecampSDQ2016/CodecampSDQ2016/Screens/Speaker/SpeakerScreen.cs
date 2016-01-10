@@ -17,8 +17,11 @@ namespace CodecampSDQ2016
 			var listView = new ListView
 			{
 				ItemTemplate = new DataTemplate(typeof(SpeakerViewCell)),
-				RowHeight = 180
+				RowHeight = 180,
+				IsPullToRefreshEnabled = true
 			};
+
+			listView.SetBinding<SpeakerViewModel>(ListView.IsPullToRefreshEnabledProperty, m => m.PullToRefreshEnabled);
 
 			listView.ItemSelected += (sender, e) => 
 			{
