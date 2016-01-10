@@ -45,7 +45,13 @@ namespace CodecampSDQ2016.Droid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int icon = 2130837504;
+			public const int globe = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int icon = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int photo = 2130837506;
 			
 			static Drawable()
 			{
