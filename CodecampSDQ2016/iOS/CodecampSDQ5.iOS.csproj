@@ -123,5 +123,9 @@
     <BundleResource Include="Resources\claudio%402x.png" />
     <BundleResource Include="Resources\gregorex%402x.png" />
     <BundleResource Include="Resources\sd%402x.png" />
+    <BundleResource Include="Resources\megsoft%402x.png" />
+    <BundleResource Include="Resources\mic%402x.png" />
+    <BundleResource Include="Resources\microsoft%402x.png" />
+    <BundleResource Include="Resources\fundacionBalaguer.png" />
   </ItemGroup>
 </Project>
