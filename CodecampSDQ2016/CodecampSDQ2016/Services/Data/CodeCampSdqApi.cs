@@ -77,13 +77,6 @@ namespace CodecampSDQ2016.Services.Data
         {
             var speakers = await GlobalCache.GetSpeakers();
 
-            if (speakers.Any())
-                return speakers;
-
-            await GetSessions();
-
-            speakers = await GlobalCache.GetSpeakers();
-
             return speakers;
         }
 
