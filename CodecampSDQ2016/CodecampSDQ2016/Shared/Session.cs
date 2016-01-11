@@ -11,7 +11,6 @@ namespace CodecampSDQ2016
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public int SpeakerId { get; set; }
-	    public string SpeakerName { get; set; }
 
         public string Charla { get; set; }
 

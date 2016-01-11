@@ -22,7 +22,7 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Get All data from api
+        /// Get All data from api and Save into GlobalCache
         /// </summary>
         /// <returns></returns>
         public async Task FetchData()
@@ -39,13 +39,20 @@ namespace CodecampSDQ2016.Services.Data
 
             if (apiData != null)
             {
+                _client.BaseAddress = null;
+
                 var sessions = apiData.Sessions;
                 var speakers = apiData.Speakers;
 
                 //Process Speaker Image Url
                 foreach (var speaker in speakers)
                 {
+                    if(string.IsNullOrEmpty(speaker.PhotoUrl))
+                        continue;
 
+                    var speakerImage = await _client.GetByteArrayAsync(speaker.PhotoUrl);
+
+                    speaker.BinaryPhoto = speakerImage;
                 }
 
                 await GlobalCache.SaveSessions(sessions);
@@ -54,7 +61,7 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Get All Sessions
+        /// Get All Sessions from GlobalCache
         /// </summary>
         /// <returns>Array of Session object.</returns>
         public async Task<IEnumerable<Session>> GetSessions()
@@ -65,7 +72,7 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Get Session by Id
+        /// Get Session by Id from GlobalCache
         /// </summary>
         /// <param name="sessionId">Id of Session</param>
         /// <returns>return a Session object.</returns>
@@ -79,7 +86,7 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Get all Speakers.
+        /// Get all Speakers from GlobalCache
         /// </summary>
         /// <returns>Array of Speaker object.</returns>
         public async Task<IEnumerable<Speaker>> GetSpeakers()
@@ -90,7 +97,7 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Get Details of a Speaker.
+        /// Get Details of a Speaker from GlobalCache
         /// </summary>
         /// <param name="speakerId">Id of Speaker</param>
         /// <returns>A Speaker object.</returns>
@@ -101,6 +108,20 @@ namespace CodecampSDQ2016.Services.Data
             var speaker = speakers.FirstOrDefault(x => x.Id.Equals(speakerId));
 
             return speaker;
+        }
+
+        /// <summary>
+        /// Get all Session of a Speaker from speaker id.
+        /// </summary>
+        /// <param name="speakerId">Id of Speaker</param>
+        /// <returns>Array of Session object.</returns>
+        public async Task<IEnumerable<Session>> GetAllSpeakerSessions(int speakerId)
+        {
+            var allSessions = await GetSessions();
+
+            var speakerSessions = allSessions.Where(x => x.SpeakerId.Equals(speakerId));
+
+            return speakerSessions;
         }
     }
 }

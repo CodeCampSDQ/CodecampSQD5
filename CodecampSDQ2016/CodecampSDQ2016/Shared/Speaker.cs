@@ -14,6 +14,7 @@ namespace CodecampSDQ2016
         public string GitHubAccount { get; set; }
         public string LinkedInAccount { get; set; }
         public string GooglePlusAccount { get; set; }
+	    public byte[] BinaryPhoto { get; set; }
 
         public string FaceBackground { get; set; }
 	}
