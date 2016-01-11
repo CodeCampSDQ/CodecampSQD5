@@ -125,16 +125,7 @@
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Screens\" />
-    <Folder Include="Framework\" />
-    <Folder Include="Screens\HomeScreen\" />
-    <Folder Include="Shared\" />
-    <Folder Include="Services\" />
-    <Folder Include="Screens\Speaker\" />
-    <Folder Include="Screens\Sessions\" />
-    <Folder Include="Screens\Sponsors\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
