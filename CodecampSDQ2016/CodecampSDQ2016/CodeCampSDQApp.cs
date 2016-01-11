@@ -7,8 +7,9 @@ namespace CodecampSDQ2016
 	{
 		public CodeCampSDQApp ()
 		{
-			MainPage = new HomeScreen();
-		    BlobCache.ApplicationName = "CodeCampSDQ5";
+            BlobCache.ApplicationName = "CodeCampSDQ5";
+
+            MainPage = new HomeScreen();
 		}
 	}
 }
