@@ -48,6 +48,13 @@
     <Compile Include="Screens\Sponsors\SponsorScreen.cs" />
     <Compile Include="Screens\Sponsors\SponsorCellViewCell.cs" />
     <Compile Include="Screens\Sponsors\SponsorViewModel.cs" />
+    <Compile Include="Screens\SpeakerDetails\SpeakerDetailScreen.cs" />
+    <Compile Include="Screens\SpeakerDetails\SpeakerDetailViewModel.cs" />
+    <Compile Include="Screens\SocialApps\SocialAppScreen.cs" />
+    <Compile Include="Screens\SocialApps\SocialAppViewModel.cs" />
+    <Compile Include="Screens\SocialApps\SocialAppViewCell.cs" />
+    <Compile Include="Screens\SocialApps\SocialApp.cs" />
+    <Compile Include="Screens\SpeakerDetails\SpeakerDetailsViewCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
@@ -82,5 +89,7 @@
     <Folder Include="Screens\Speaker\" />
     <Folder Include="Screens\Sessions\" />
     <Folder Include="Screens\Sponsors\" />
+    <Folder Include="Screens\SpeakerDetails\" />
+    <Folder Include="Screens\SocialApps\" />
   </ItemGroup>
 </Project>

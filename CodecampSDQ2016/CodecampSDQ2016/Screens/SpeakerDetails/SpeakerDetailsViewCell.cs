@@ -4,9 +4,9 @@ using Marioneta;
 
 namespace CodecampSDQ2016
 {
-	public class SessionViewCell : ViewCell
+	public class SpeakerDetailsViewCell : ViewCell
 	{
-		public SessionViewCell ()
+		public SpeakerDetailsViewCell ()
 		{
 			View = CreateView();
 		}
@@ -15,19 +15,10 @@ namespace CodecampSDQ2016
 		{
 			var builder = new RelativeBuilder();
 
-			var charlista = new Label
-			{
-				FontAttributes = FontAttributes.Bold,
-				FontSize = 18,
-				TextColor = Color.Black
-			};
-
-			charlista.SetBinding<Session>(Label.TextProperty, m => m.Charlista);
-
 			var sessionName = new Label
 			{
 				TextColor = Color.Black,
-				FontSize = 14
+				FontSize = 12
 			};
 
 			var sessionNameContainer = new StackLayout
@@ -42,47 +33,48 @@ namespace CodecampSDQ2016
 			sessionName.SetBinding<Session>(Label.TextProperty, m => m.Charla);
 
 			var lugar = new Label
-			{
-				TextColor = Color.FromHex("3498db")
+			{ 
+				FontSize = 12,
+				TextColor = Color.FromHex("3498db"),
 			};
 
 			lugar.SetBinding<Session>(Label.TextProperty, m => m.Lugar);
 
 			var hora = new Label
 			{
+				FontSize = 10,
 				TextColor = Color.FromHex("3498db"),
-				FontSize = 14
 			};
 
 			hora.SetBinding<Session>(Label.TextProperty, m => m.HoraInicio);
 
 			builder
-				.AddView(charlista)
-				.WithPadding(new Thickness(16,12,0,4));
-			
+				.AddView(new BoxView{BackgroundColor= Color.FromHex("efeff4")})
+				.ExpandViewToParentXY();
+
 			builder
 				.AddView(sessionNameContainer)
-				.BelowOf(charlista)
 				.ExpandViewToParentWidth()
-				.AlignLeft(charlista)
-				.WithPadding(new Thickness(0,8,0,0));
+				.WithPadding(new Thickness(16,12,0,0));
 
 			builder
 				.AddView(lugar)
 				.BelowOf(sessionNameContainer)
 				.AlignLeft(sessionNameContainer)
-				.WithPadding(new Thickness(0,10,0,0));
+				.WithPadding(new Thickness(0,18,0,0));
 			
 			builder
 				.AddView(hora)
-				.AlignTop(lugar)
+				.AlignTop(lugar) 
 				.AlignParentRight()
-				.WithPadding(new Thickness(0,4,16,0));
+				.WithPadding(new Thickness(0,4,20,0));
 
-			return builder
+			builder
 				.ApplyConfiguration((p,v)=>{
 					p.Padding = new Thickness(10);
-			}).BuildLayout();
+			});
+
+			return builder.BuildLayout();
 		}
 	}
 }
