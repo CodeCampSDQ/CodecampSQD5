@@ -127,5 +127,9 @@
     <BundleResource Include="Resources\mic%402x.png" />
     <BundleResource Include="Resources\microsoft%402x.png" />
     <BundleResource Include="Resources\fundacionBalaguer.png" />
+    <BundleResource Include="Resources\fb%402x.png" />
+    <BundleResource Include="Resources\gplus%402x.png" />
+    <BundleResource Include="Resources\twitter%402x.png" />
+    <BundleResource Include="Resources\linked%402x.png" />
   </ItemGroup>
 </Project>
