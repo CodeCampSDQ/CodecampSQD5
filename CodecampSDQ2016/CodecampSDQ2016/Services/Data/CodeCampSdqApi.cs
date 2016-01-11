@@ -22,23 +22,15 @@ namespace CodecampSDQ2016.Services.Data
         }
 
         /// <summary>
-        /// Fetch all data from API and return an array of Session.
-        /// This method try to get data from cache, if cache is empty,
-        /// connect to API and get raw data of Speakers and Sessions, then,
-        /// Parse this Data and save to cache.
+        /// Get All data from api
         /// </summary>
-        /// <returns>Array of Session object.</returns>
-        public async Task<IEnumerable<Session>> GetSessions()
+        /// <returns></returns>
+        public async Task FetchData()
         {
-            var sessions = await GlobalCache.GetSessions();
-
-            if (sessions.Any())
-                return sessions;
-
             var data = await _client.GetStringAsync("GetSessions");
 
             if (string.IsNullOrWhiteSpace(data))
-                return sessions;
+                return;
 
             var apiData = JsonConvert.DeserializeObject<ApiDataDto>(data, new JsonSerializerSettings
             {
@@ -47,24 +39,37 @@ namespace CodecampSDQ2016.Services.Data
 
             if (apiData != null)
             {
-                sessions = apiData.Sessions;
+                var sessions = apiData.Sessions;
                 var speakers = apiData.Speakers;
-
-                await GlobalCache.SaveSessions(sessions);
 
                 //Process Speaker Image Url
                 foreach (var speaker in speakers)
                 {
-                    
+
                 }
 
+                await GlobalCache.SaveSessions(sessions);
                 await GlobalCache.SaveSpeakers(speakers);
             }
+        }
+
+        /// <summary>
+        /// Get All Sessions
+        /// </summary>
+        /// <returns>Array of Session object.</returns>
+        public async Task<IEnumerable<Session>> GetSessions()
+        {
+            var sessions = await GlobalCache.GetSessions();
 
             return sessions;
         }
 
-        public async Task<Session> GetSession(int sessionId)
+        /// <summary>
+        /// Get Session by Id
+        /// </summary>
+        /// <param name="sessionId">Id of Session</param>
+        /// <returns>return a Session object.</returns>
+        public async Task<Session> GetSessionDetails(int sessionId)
         {
             var sessions = await GetSessions();
 
@@ -73,6 +78,10 @@ namespace CodecampSDQ2016.Services.Data
             return session;
         }
 
+        /// <summary>
+        /// Get all Speakers.
+        /// </summary>
+        /// <returns>Array of Speaker object.</returns>
         public async Task<IEnumerable<Speaker>> GetSpeakers()
         {
             var speakers = await GlobalCache.GetSpeakers();
@@ -80,6 +89,11 @@ namespace CodecampSDQ2016.Services.Data
             return speakers;
         }
 
+        /// <summary>
+        /// Get Details of a Speaker.
+        /// </summary>
+        /// <param name="speakerId">Id of Speaker</param>
+        /// <returns>A Speaker object.</returns>
         public async Task<Speaker> GetSpeakerDetails(int speakerId)
         {
             var speakers = await GetSpeakers();
