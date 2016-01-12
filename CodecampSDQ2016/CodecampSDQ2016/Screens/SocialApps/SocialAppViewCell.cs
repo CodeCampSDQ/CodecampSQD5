@@ -16,7 +16,8 @@ namespace CodecampSDQ2016
 			var icon = new Image
 			{
 				WidthRequest = 52,
-				HeightRequest = 52
+				HeightRequest = 52,
+				Aspect = Aspect.AspectFit
 			};
 
 			icon.SetBinding<SocialApp>(Image.SourceProperty, m => m.Logo);

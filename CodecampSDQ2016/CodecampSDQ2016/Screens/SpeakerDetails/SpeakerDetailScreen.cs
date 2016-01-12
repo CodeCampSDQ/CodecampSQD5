@@ -19,6 +19,8 @@ namespace CodecampSDQ2016
 		{
 			this.SetBinding<SpeakerDetailViewModel>(TitleProperty, m => m.SpeakerName);
 
+			BackgroundColor = Color.White;
+
 			var image = new Image
 			{
 				HeightRequest = 200,

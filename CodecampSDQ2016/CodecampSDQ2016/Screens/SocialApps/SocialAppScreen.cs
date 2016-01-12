@@ -37,7 +37,8 @@ namespace CodecampSDQ2016
 			var headerDescription = new Button
 			{
 				TextColor = Color.FromHex("3498db"),
-				FontSize = 14
+				FontSize = 14,
+				BackgroundColor = Color.Transparent
 			};
 
 			headerDescription.SetBinding<SocialAppViewModel>(Button.TextProperty, m => m.HeaderDescription);
