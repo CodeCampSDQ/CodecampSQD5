@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CodecampSDQ2016.Services.Cache;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace CodecampSDQ2016.Services.Data
 {
@@ -27,12 +28,14 @@ namespace CodecampSDQ2016.Services.Data
         /// <returns></returns>
         public async Task FetchData()
         {
-            var data = await _client.GetStringAsync("GetSessions");
+            var data = await _client.GetStringAsync("GetData");
 
             if (string.IsNullOrWhiteSpace(data))
                 return;
+			
+//			var formattedData = data.Substring(1, data.Length - 2).Replace("\\","");
 
-            var apiData = JsonConvert.DeserializeObject<ApiDataDto>(data, new JsonSerializerSettings
+			var apiData = JsonConvert.DeserializeObject<ApiDataDto>(data, new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
@@ -42,6 +45,7 @@ namespace CodecampSDQ2016.Services.Data
                 _client.BaseAddress = null;
 
                 var sessions = apiData.Sessions;
+
                 var speakers = apiData.Speakers;
 
                 //Process Speaker Image Url
@@ -53,10 +57,20 @@ namespace CodecampSDQ2016.Services.Data
                     var speakerImage = await _client.GetByteArrayAsync(speaker.PhotoUrl);
 
                     speaker.BinaryPhoto = speakerImage;
+
+					var session = sessions.FirstOrDefault(sc => sc.SpeakerId == speaker.Id);
+ 
+					if(session != null)
+					{
+						session.SpeakerName = speaker.Name;
+					}
                 }
 
                 await GlobalCache.SaveSessions(sessions);
+
                 await GlobalCache.SaveSpeakers(speakers);
+
+				_client.BaseAddress = new Uri(BaseApiUrl);
             }
         }
 
@@ -66,7 +80,14 @@ namespace CodecampSDQ2016.Services.Data
         /// <returns>Array of Session object.</returns>
         public async Task<IEnumerable<Session>> GetSessions()
         {
-            var sessions = await GlobalCache.GetSessions();
+			var sessions = await GlobalCache.GetSessions();
+
+			if(sessions == null)
+			{
+				await FetchData();
+
+				sessions = await GlobalCache.GetSessions();
+			}
 
             return sessions;
         }
@@ -92,6 +113,13 @@ namespace CodecampSDQ2016.Services.Data
         public async Task<IEnumerable<Speaker>> GetSpeakers()
         {
             var speakers = await GlobalCache.GetSpeakers();
+
+			if(speakers == null)
+			{
+				await FetchData();
+
+				speakers = await GlobalCache.GetSpeakers();
+			}
 
             return speakers;
         }

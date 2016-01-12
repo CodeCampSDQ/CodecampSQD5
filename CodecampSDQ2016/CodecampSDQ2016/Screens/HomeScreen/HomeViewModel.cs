@@ -2,6 +2,7 @@ using System;
 
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace CodecampSDQ2016
 {
@@ -9,8 +10,9 @@ namespace CodecampSDQ2016
 	{
 		public ObservableCollection<ContentPage> Tabs { get; set; }
 
-		public override void NavigateTo ()
+		public async override void NavigateTo ()
 		{
+			
 			Tabs = new ObservableCollection<ContentPage>
 			{
 				new SessionScreen () { Title = "Sesiones" , Icon = "globe"},
@@ -20,7 +22,5 @@ namespace CodecampSDQ2016
 			};
 		}
 	}
-
-
 }
 

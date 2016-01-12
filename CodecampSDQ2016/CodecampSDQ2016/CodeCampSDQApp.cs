@@ -1,5 +1,7 @@
 ﻿using Akavache;
 using Xamarin.Forms;
+using System.Threading.Tasks;
+using CodecampSDQ2016.Services.Data;
 
 namespace CodecampSDQ2016
 {
@@ -8,7 +10,8 @@ namespace CodecampSDQ2016
 		public CodeCampSDQApp ()
 		{
             BlobCache.ApplicationName = "CodeCampSDQ5";
-            MainPage = new HomeScreen();
+
+			MainPage = new NavigationPage(new HomeScreen());
         }
 	}
 }

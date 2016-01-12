@@ -30,7 +30,7 @@ namespace CodecampSDQ2016
 				}
 			};
 
-			sessionName.SetBinding<Session>(Label.TextProperty, m => m.Charla);
+			sessionName.SetBinding<Session>(Label.TextProperty, m => m.Name);
 
 			var lugar = new Label
 			{ 
@@ -38,7 +38,7 @@ namespace CodecampSDQ2016
 				TextColor = Color.FromHex("3498db"),
 			};
 
-			lugar.SetBinding<Session>(Label.TextProperty, m => m.Lugar);
+			lugar.SetBinding<Session>(Label.TextProperty, m => m.Location);
 
 			var hora = new Label
 			{
@@ -46,7 +46,7 @@ namespace CodecampSDQ2016
 				TextColor = Color.FromHex("3498db"),
 			};
 
-			hora.SetBinding<Session>(Label.TextProperty, m => m.HoraInicio);
+			hora.SetBinding<Session>(Label.TextProperty, m => m.StartTime, BindingMode.Default, new TimeSpanToString());
 
 			builder
 				.AddView(new BoxView{BackgroundColor= Color.FromHex("efeff4")})

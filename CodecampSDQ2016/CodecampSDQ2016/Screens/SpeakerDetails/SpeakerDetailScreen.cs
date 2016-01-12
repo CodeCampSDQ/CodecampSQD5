@@ -2,6 +2,7 @@ using System;
 
 using Xamarin.Forms;
 using Marioneta;
+using System.Threading.Tasks;
 
 namespace CodecampSDQ2016
 {
@@ -9,9 +10,14 @@ namespace CodecampSDQ2016
 	{
 		RelativeLayout _relativeLayout;
 
+		public SpeakerDetailScreen (Speaker speaker)
+		{
+			DataContext.Init(speaker);
+		}
+
 		public override View CreatePageContent ()
 		{
-			BackgroundColor = Color.White;
+			this.SetBinding<SpeakerDetailViewModel>(TitleProperty, m => m.SpeakerName);
 
 			var image = new Image
 			{
@@ -19,7 +25,7 @@ namespace CodecampSDQ2016
 				Aspect = Aspect.AspectFill
 			};
 
-			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture);
+			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
 
 			var speakerName = new Label
 			{
@@ -53,7 +59,9 @@ namespace CodecampSDQ2016
 				BackgroundColor = Color.Transparent
 			};
 
-			url.SetBinding<SpeakerDetailViewModel>(Button.TextProperty, m => m.Url);
+			url.SetBinding<SpeakerDetailViewModel>(Button.CommandProperty,m => m.OnUrlTapCommand);
+
+			url.SetBinding<SpeakerDetailViewModel>(Button.TextProperty, m => m.GitHubUrlDesc);
 
 			var socialApps = new Button
 			{
@@ -62,12 +70,14 @@ namespace CodecampSDQ2016
 				BackgroundColor = Color.Transparent
 			};
 
-			socialApps.SetBinding<SpeakerDetailViewModel>(Button.TextProperty, m => m.SocialApps);
+			socialApps.Clicked += OnSocialAppsSelected;
+
+			socialApps.SetBinding<SpeakerDetailViewModel>(Button.TextProperty, m => m.SocialAppsDesc);
 
 			var sessionList = new ListView {
 				ItemTemplate = new DataTemplate (typeof(SpeakerDetailsViewCell)),
 				RowHeight = 80,
-				HeightRequest = DataContext.Sessions.Count * 100
+//				HeightRequest = DataContext.Sessions.Count * 100
 			};
 
 			sessionList.ItemSelected += (sender, e) => 
@@ -147,6 +157,11 @@ namespace CodecampSDQ2016
 			_relativeLayout.PropertyChanged += OnPropertyChangedA;
 
 			return _relativeLayout;
+		}
+
+		async void OnSocialAppsSelected(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new SocialAppScreen(DataContext.Speaker));
 		}
 
 		public void OnPropertyChangedA (object sender, System.ComponentModel.PropertyChangedEventArgs e)

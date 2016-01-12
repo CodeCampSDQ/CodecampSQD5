@@ -6,9 +6,16 @@ namespace CodecampSDQ2016
 {
 	public class SocialAppScreen : Screen<SocialAppViewModel>
 	{
+		public SocialAppScreen (Speaker speaker)
+		{
+			DataContext.Init(speaker);
+		}
+
 		public override View CreatePageContent ()
 		{
-			BackgroundColor = Color.FromHex("D3D3D3");
+			this.SetBinding<SocialAppViewModel>(BackgroundColorProperty, m => m.BackgroundColor);
+
+			this.SetBinding<SocialAppViewModel>(TitleProperty, m => m.Title);
 
 			var image = new Image
 			{
@@ -16,7 +23,7 @@ namespace CodecampSDQ2016
 				HeightRequest = 200
 			};
 
-			image.SetBinding<SocialAppViewModel>(Image.SourceProperty, m => m.Header);
+			image.SetBinding<SocialAppViewModel>(Image.SourceProperty, m => m.Header, BindingMode.Default, new FromBinaryToImageDataSource());
 
 			var headerTitle = new Label
 			{
@@ -34,17 +41,21 @@ namespace CodecampSDQ2016
 			};
 
 			headerDescription.SetBinding<SocialAppViewModel>(Button.TextProperty, m => m.HeaderDescription);
+			headerDescription.SetBinding<SocialAppViewModel>(Button.CommandProperty, m => m.HeaderSelected);
 
 			var listView = new ListView
 			{
 				ItemTemplate = new DataTemplate(typeof(SocialAppViewCell)),
-				RowHeight = 80
+				RowHeight = 80,
+				VerticalOptions = LayoutOptions.StartAndExpand
 			};
 
 			listView.ItemSelected += (sender, e) => 
 			{
 				if (e.SelectedItem == null)
 					return;
+
+				DataContext.NavigateToSocial.Execute(e.SelectedItem);
 
 				((ListView)sender).SelectedItem = null;
 			};
@@ -64,7 +75,7 @@ namespace CodecampSDQ2016
 			content
 				.AddView(headerTitle)
 				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,90,0,0));
+				.WithPadding(new Thickness(0,70,0,0));
 
 			content
 				.AddView(headerDescription)
@@ -73,15 +84,18 @@ namespace CodecampSDQ2016
 				.WithPadding(new Thickness(0,12,0,0))
 				.ApplyConfiguration((p,v)=>
 					{
-					p.HeightRequest = 160;
+					p.HeightRequest = 200;
 				});
-				
+
+			var layout = (RelativeLayout) content.BuildLayout();
+			layout.VerticalOptions = LayoutOptions.Start;
+			
 			return new StackLayout
 			{
 				Spacing = 0,
 				Children = 
 				{
-					content.BuildLayout(),
+					layout,
 					listView
 				}
 			};

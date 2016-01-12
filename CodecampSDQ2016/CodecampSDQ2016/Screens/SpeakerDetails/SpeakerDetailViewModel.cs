@@ -2,54 +2,73 @@ using System;
 
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CodecampSDQ2016
 {
 	public class SpeakerDetailViewModel : ViewModelBase
 	{
+		public Speaker Speaker { get; set; }
+
 		public ObservableCollection<Session> Sessions { get; set; }
+
+		public Command OnUrlTapCommand { get; set; }
 
 		public string SpeakerName { get; set; }
 
 		public string Bio { get; set; }
 
-		public string ProfilePicture { get; set; }
+		public byte[] ProfilePicture { get; set; }
 
 		public string CharlasCount { get; set; }
 
-		public string Url { get; set; }
+		public string GitHubUrlDesc { get; set; }
 
-		public string SocialApps { get; set; }
+		public string SocialAppsDesc { get; set; }
 
 		public SpeakerDetailViewModel ()
 		{
+			OnUrlTapCommand = new Command(OnUrlTap);
+		}
+
+		void OnUrlTap ()
+		{
+			if(string.IsNullOrEmpty(Speaker.GitHubAccount))
+				return;
 			
+			Device.OpenUri(new Uri(Speaker.GitHubAccount));
+		}
+
+		public async void Init (Speaker speaker)
+		{
+			Speaker = speaker;
+
+			await ParseSpeaker(speaker);
+		}
+
+		async Task ParseSpeaker (Speaker speaker)
+		{
+			GitHubUrlDesc = "Github";
+
+			ProfilePicture = speaker.BinaryPhoto;
+
+			SpeakerName = speaker.Name;
+
+			Bio = speaker.Bio;
+
+			SocialAppsDesc = "See me on";
+
+			var sessions = new List<Session>(await ApiService.GetAllSpeakerSessions(speaker.Id));
+
+			CharlasCount = String.Format("{0} Session(s)", sessions.Count);
+
+			Sessions = new ObservableCollection<Session>(sessions);
 		}
 
 		public override void NavigateTo ()
 		{
-			Url = "Github";
-
-			ProfilePicture = "luis";
-
-			SpeakerName = "Luis Ramirez";
-
-			Bio = "Luis Ramirez tiene mas de 8 años de experiencia escribiendo software tanto el mercado local como internacional en la plataforma .NET y es una de las personas responsables de que comunidades como c#.do y Mobile.Do existan. Ademas de que es un apasionado a las buenas practicas y del buen software.";
-
-			CharlasCount = "1 Sessions";
-
-			SocialApps = "Social Apps";
-
-			Sessions = new ObservableCollection<Session>
-			{
-				new Session
-				{
-					Charla = "AUTOMATING PORTABILITY ANALYSIS AND PERFORMANCE OPTIMIZATION OF NATIVE CODE",
-					Charlista = "Luis Ramirez",
-					HoraInicio = string.Format("{0}:{1}", "11","30"),
-					Lugar = "Sala 01"
-				}
-			};
+			
 		}
 	}
 }

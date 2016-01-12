@@ -20,7 +20,7 @@ namespace CodecampSDQ2016
 				Aspect = Aspect.AspectFill
 			};
 
-			face.SetBinding<Speaker>(Image.SourceProperty, m => m.FaceBackground);
+			face.SetBinding<Speaker>(Image.SourceProperty, m => m.BinaryPhoto, BindingMode.Default, new FromBinaryToImageDataSource());
 
 			var shim = new BoxView
 			{
