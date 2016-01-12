@@ -13,11 +13,13 @@ namespace CodecampSDQ2016
 
 		void SetBindings ()
 		{
+			Title = "CodeCampSDQ";
+
 			//Not binding to ViewModel
 //			this.SetBinding<HomeViewModel>(TabbedPage.ItemsSourceProperty, m => m.Tabs);
 
 			this.Children.Add(new SessionScreen () { Title = "Sesiones" , Icon = "globe"});
-			this.Children.Add(new SpeakerDetailScreen () { Title = "Charlista" , Icon = "globe" });
+			this.Children.Add(new SpeakerScreen () { Title = "Charlistas" , Icon = "globe" });
 			this.Children.Add(new SponsorScreen () { Title = "Sponsors" , Icon = "globe" });
 			this.Children.Add(new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"});
 		}

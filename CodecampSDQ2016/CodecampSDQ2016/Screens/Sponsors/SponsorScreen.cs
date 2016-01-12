@@ -59,29 +59,34 @@ namespace CodecampSDQ2016
 
 			listView.SetBinding<SponsorViewModel>(ListView.ItemsSourceProperty, m => m.Sponsors);
 
-			var builder = new RelativeBuilder()
+			var content = (RelativeLayout) new RelativeBuilder()
 				.AddView(image)
 				.ExpandViewToParentWidth()
 				.AddView(headerTitle)
 				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,90,0,0))
-				.AddView(headerDescription)
-				.BelowOf(headerTitle)
-				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,12,0,0))
-				.ApplyConfiguration((p,v)=>{
-					p.HeightRequest = 200;
-				})
+				.WithPadding(new Thickness(0,70,0,0))
+				.ApplyConfiguration((p,v)=>
+					{
+						p.HeightRequest = 200;
+					})
 				.BuildLayout();
+
+			content.VerticalOptions = LayoutOptions.Start;
+
+			content
+				.Children.Add(headerDescription,
+					Constraint.RelativeToParent(p => p.Width / 2 - 118),
+					Constraint.RelativeToView(headerTitle, (p,v) => (v.Y + v.Height + 16)));
 
 			return new StackLayout
 			{
+				Spacing = 0,
 				Children = 
 				{
-					builder,
+					content,
 					listView
 				}
-			};
+				};
 		}
 	}
 

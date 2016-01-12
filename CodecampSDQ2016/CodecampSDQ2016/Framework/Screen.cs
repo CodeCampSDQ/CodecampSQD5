@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace CodecampSDQ2016
 {
@@ -9,9 +10,9 @@ namespace CodecampSDQ2016
 
 		public Screen ()
 		{
-			SetUpBindingContext();
-
 			Content = CreatePageContent();
+
+			SetUpBindingContext();
 		}
 
 		void SetUpBindingContext ()

@@ -2,6 +2,7 @@ using System;
 
 using Xamarin.Forms;
 using Marioneta;
+using System.Collections.Generic;
 
 namespace CodecampSDQ2016
 {
@@ -42,10 +43,15 @@ namespace CodecampSDQ2016
 			var listView = new ListView
 			{
 				ItemTemplate = new DataTemplate(typeof(SessionViewCell)),
-				RowHeight = 100
+				RowHeight = 100,
+				VerticalOptions = LayoutOptions.StartAndExpand
 			};
 
 			listView.SetBinding<SessionViewModel>(ListView.IsPullToRefreshEnabledProperty, m => m.PullToRefreshEnabled);
+
+			listView.SetBinding<SessionViewModel>(ListView.RefreshCommandProperty, m => m.PullToRefreshCommand);
+
+			listView.SetBinding<SessionViewModel>(ListView.IsRefreshingProperty, m => m.IsLoading);
 
 			listView.ItemSelected += (sender, e) => 
 			{
@@ -57,23 +63,28 @@ namespace CodecampSDQ2016
 
 			listView.SetBinding<SessionViewModel>(ListView.ItemsSourceProperty, m => m.Sessions);
 
-			var content = new RelativeBuilder()
+			var content = (RelativeLayout) new RelativeBuilder()
 				.AddView(image)
 				.ExpandViewToParentWidth()
 				.AddView(headerTitle)
 				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,90,0,0))
-				.AddView(headerDescription)
-				.BelowOf(headerTitle)
-				.AlignParentCenterHorizontal()
-				.WithPadding(new Thickness(0,12,0,0))
-				.ApplyConfiguration((p,v)=>{
+				.WithPadding(new Thickness(0,70,0,0))
+				.ApplyConfiguration((p,v)=>
+				{
 					p.HeightRequest = 200;
 				})
 				.BuildLayout();
 			
+			content.VerticalOptions = LayoutOptions.Start;
+
+			content
+				.Children.Add(headerDescription,
+				Constraint.RelativeToParent(p => p.Width / 2 - 126),
+				Constraint.RelativeToView(headerTitle, (p,v) => (v.Y + v.Height + 16)));
+
 			return new StackLayout
 			{
+				Spacing = 0,
 				Children = 
 				{
 					content,

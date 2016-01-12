@@ -17,9 +17,20 @@ namespace CodecampSDQ2016.Services.Cache
 
         public static async Task<IEnumerable<Session>> GetSessions()
         {
-            var sessions = await BlobCache.UserAccount.GetObject<IEnumerable<Session>>(SessionKey);
+			return await Task.Run<IEnumerable<Session>>(async ()=>{
 
-            return sessions;
+				IEnumerable<Session> sessions = null;
+
+				try
+				{
+					sessions = await BlobCache.UserAccount.GetObject<IEnumerable<Session>>(SessionKey);
+				}
+				catch(KeyNotFoundException)
+				{
+				}
+
+				return sessions;
+			});
         }
 
         public static async Task SaveSpeakers(IEnumerable<Speaker> speakers)
@@ -29,9 +40,20 @@ namespace CodecampSDQ2016.Services.Cache
 
         public static async Task<IEnumerable<Speaker>> GetSpeakers()
         {
-            var speakers = await BlobCache.UserAccount.GetObject<IEnumerable<Speaker>>(SpeakersKey);
+			return await Task.Run<IEnumerable<Speaker>>(async ()=>{
 
-            return speakers;
+				IEnumerable<Speaker> speakers = null;
+
+				try
+				{
+					speakers = await BlobCache.UserAccount.GetObject<IEnumerable<Speaker>>(SpeakersKey);
+				}
+				catch(KeyNotFoundException)
+				{
+				}
+
+				return speakers;
+			});
         }
 
         public static async Task ClearCache()

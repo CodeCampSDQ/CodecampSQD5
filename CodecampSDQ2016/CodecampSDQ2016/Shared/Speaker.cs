@@ -10,13 +10,12 @@ namespace CodecampSDQ2016
         public string Url { get; set; }
         public string PhotoUrl { get; set; }
         public string TwitterAccount { get; set; }
+		public string Email { get; set; }
         public string FacebookAccount { get; set; }
         public string GitHubAccount { get; set; }
         public string LinkedInAccount { get; set; }
         public string GooglePlusAccount { get; set; }
 	    public byte[] BinaryPhoto { get; set; }
-
-        public string FaceBackground { get; set; }
 	}
 }
 
