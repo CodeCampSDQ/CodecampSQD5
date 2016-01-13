@@ -21,38 +21,48 @@ namespace CodecampSDQ2016
 
 			BackgroundColor = Color.White;
 
-			var image = new Image
-			{
-				HeightRequest = 200,
-				Aspect = Aspect.AspectFill
-			};
-
-			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
+//			var image = new Image
+//			{
+//				HeightRequest = 200,
+//				Aspect = Aspect.AspectFill
+//			};
+//
+//			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
 
 			var speakerName = new Label
 			{
-				TextColor = Color.White,
+				TextColor = Color.Black,
 				FontSize = 20,
 				FontAttributes = FontAttributes.Bold
-			};
+			}; 
 
 			speakerName.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.SpeakerName);
 
-			var bio = new Label
+			var biox = new Label
 			{
 				TextColor = Color.Gray,
 				FontSize = 14
 			};
 				
-			bio.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.Bio);
+			biox.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.Bio);
 
-			var charlasCount = new Label
+			var bio = new StackLayout
 			{
-				TextColor = Color.White,
-				FontSize = 14
+				Padding = new Thickness(10,0),
+				Children = 
+				{
+					biox
+				}
 			};
 
-			charlasCount.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.CharlasCount);
+			var bioDesc = new Label
+			{
+				FontAttributes = FontAttributes.Bold,
+				FontSize = 20,
+				TextColor = Color.Black
+			};
+
+			bioDesc.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.CharlasCount);
 
 			var url = new Button
 			{
@@ -77,8 +87,8 @@ namespace CodecampSDQ2016
 			socialApps.SetBinding<SpeakerDetailViewModel>(Button.TextProperty, m => m.SocialAppsDesc);
 
 			var sessionList = new ListView {
-				ItemTemplate = new DataTemplate (typeof(SpeakerDetailsViewCell)),
-				RowHeight = 80,
+				ItemTemplate = new DataTemplate (typeof(SessionViewCell)),
+				RowHeight = 100,
 //				HeightRequest = DataContext.Sessions.Count * 100
 			};
 
@@ -86,72 +96,107 @@ namespace CodecampSDQ2016
 			{
 				if (e.SelectedItem == null)
 					return;
+				
+				OnSelectedItem((Session) e.SelectedItem);
 
 				((ListView)sender).SelectedItem = null;
 			};
 
 			sessionList.SetBinding<SpeakerDetailViewModel>(ListView.ItemsSourceProperty, m => m.Sessions);
 
-			var view = new BoxView { Color = Color.Black, HeightRequest = 200, Opacity = 0.6 };
-
-			var urlContainer = new StackLayout
-			{
-				Orientation = StackOrientation.Horizontal,
-				Spacing = 16,
-				Children = 
-				{
-					url,
-					socialApps
-				}
-			}; 
+//			var view = new BoxView { Color = Color.Black, HeightRequest = 200, Opacity = 0.6 };
+//
+//			var urlContainer = new StackLayout
+//			{
+//				Orientation = StackOrientation.Horizontal,
+//				Spacing = 16,
+//				Children = 
+//				{
+//					url,
+//					socialApps
+//				}
+//			}; 
 
 			var sessionTitle = new Label
 			{
-				Text = "Sessions",
 				FontAttributes = FontAttributes.Bold,
 				FontSize = 20,
-				TextColor = Color.Gray
+				TextColor = Color.Black
 			};
 
-			_relativeLayout = new RelativeLayout {
-				Children = { {
-						image,
-						Constraint.RelativeToParent (p => 0),
-						Constraint.RelativeToParent (p => 0),
-						Constraint.RelativeToParent (p => p.Width) 
-					}, {
-						view,
-						Constraint.RelativeToParent (p => 0),
-						Constraint.RelativeToParent(p => 0),
-						Constraint.RelativeToParent (p => p.Width) 
-					}, {
-						speakerName,
-						Constraint.RelativeToParent (p => p.Width / 2 - speakerName.Width / 2),
-						Constraint.RelativeToView (view, (p, v) => v.Height / 2 - (speakerName.Height / 2) - 15) 
-					}, {
-						charlasCount,
-						Constraint.RelativeToParent (p => p.Width / 2 - charlasCount.Width / 2),
-						Constraint.RelativeToView (speakerName, (p, v) => v.Y + v.Height + 12) 
-					}
-					,{
-						urlContainer,
-						Constraint.RelativeToParent (p => p.Width / 2 - urlContainer.Width / 2),
-						Constraint.RelativeToView (charlasCount, (p, v) => v.Y + v.Height + 12) 
-					}, {
-						bio,
-						Constraint.RelativeToParent (p => 24),
-						Constraint.RelativeToView (image, (p, v) => v.Y + v.Height + 30),
-						Constraint.RelativeToParent(p => p.Width - 48)
-					},
+			sessionTitle.SetBinding<SpeakerDetailViewModel>(Label.TextProperty,m => m.SessionTitle);
+
+			var container = new StackLayout
+			{
+				Children = 
+				{
+					sessionTitle,
+					new BoxView
 					{
-						sessionTitle,
-						Constraint.RelativeToParent(p => p.Width / 2 - sessionTitle.Width / 2),
-						Constraint.RelativeToView(bio,(p,v) => v.Y + v.Height + 16) 
+						Color = Color.Gray,
+						HeightRequest = 1,
+						HorizontalOptions = LayoutOptions.FillAndExpand
+					}
+				}
+			};
+
+			var container2 = new StackLayout
+			{
+				Children = 
+				{
+					bioDesc,
+					new BoxView
+					{
+						Color = Color.Gray,
+						HeightRequest = 1,
+						HorizontalOptions = LayoutOptions.FillAndExpand
+					}
+				}
+			};
+
+			container2.SetBinding<SpeakerDetailViewModel>(VisualElement.IsVisibleProperty,m => m.HasBio);
+
+			_relativeLayout = new RelativeLayout {
+				Children = { 
+//					{
+//						image,
+//						Constraint.RelativeToParent (p => 0),
+//						Constraint.RelativeToParent (p => 0),
+//						Constraint.RelativeToParent (p => p.Width) 
+//					},
+//					{
+//						view,
+//						Constraint.RelativeToParent (p => 0),
+//						Constraint.RelativeToParent(p => 0),
+//						Constraint.RelativeToParent (p => p.Width) 
+//					},
+					{
+						container2,
+						Constraint.RelativeToParent (p => 10),
+						Constraint.RelativeToParent (p => 16),
+						Constraint.RelativeToParent(p => p.Width)
+					}
+//					,{
+//						urlContainer,
+//						Constraint.RelativeToParent (p => p.Width / 2 - urlContainer.Width / 2),
+//						Constraint.RelativeToView (charlasCount, (p, v) => v.Y + v.Height + 12) 
+//					}, 
+					,{
+						bio,
+						Constraint.RelativeToParent (p => 0),
+						Constraint.RelativeToView (container2, (p, v) => v.Y + v.Height + 12),
+						Constraint.RelativeToParent(p => p.Width)
+					},
+					 {
+						container,
+						Constraint.RelativeToView(container2, (p,v) => v.X),
+						Constraint.RelativeToView(bio,(p,v) => v.Y + v.Height + 10) ,
+						Constraint.RelativeToParent(p => p.Width)
 					},
 					{
 						sessionList,
 						Constraint.RelativeToParent(p => p.Width / 2 - sessionList.Width / 2),
-						Constraint.RelativeToView(sessionTitle,(p,v) => v.Y + v.Height + 12)
+						Constraint.RelativeToView(container,(p,v) => v.Y + v.Height + 16)
 					}
 				}
 			};
@@ -172,6 +217,11 @@ namespace CodecampSDQ2016
 			{
 				_relativeLayout.ForceLayout ();
 			}
+		}
+
+		void OnSelectedItem (Session session)
+		{
+			Navigation.PushAsync(new SessionDetailScreen(session));
 		}
 	}
 

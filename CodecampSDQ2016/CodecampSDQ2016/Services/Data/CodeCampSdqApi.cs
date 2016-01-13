@@ -57,13 +57,6 @@ namespace CodecampSDQ2016.Services.Data
                     var speakerImage = await _client.GetByteArrayAsync(speaker.PhotoUrl);
 
                     speaker.BinaryPhoto = speakerImage;
-
-					var session = sessions.FirstOrDefault(sc => sc.SpeakerId == speaker.Id);
- 
-					if(session != null)
-					{
-						session.SpeakerName = speaker.Name;
-					}
                 }
 
                 await GlobalCache.SaveSessions(sessions);

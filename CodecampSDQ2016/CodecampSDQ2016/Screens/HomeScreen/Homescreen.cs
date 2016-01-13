@@ -18,10 +18,10 @@ namespace CodecampSDQ2016
 			//Not binding to ViewModel
 //			this.SetBinding<HomeViewModel>(TabbedPage.ItemsSourceProperty, m => m.Tabs);
 
-			this.Children.Add(new SessionScreen () { Title = "Sesiones" , Icon = "globe"});
-			this.Children.Add(new SpeakerScreen () { Title = "Charlistas" , Icon = "globe" });
-			this.Children.Add(new SponsorScreen () { Title = "Sponsors" , Icon = "globe" });
-			this.Children.Add(new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"});
+			this.Children.Add(new NavigationPage(new SessionScreen () { Title = "Charlas" , Icon = "sessions"}){Title = "Charlas", Icon = "sessions"});
+			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "speakers" });
+			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Patrocinadores" , Icon = "sponsors" }){Icon = "sponsors", Title = "Patrocinadores"});
+//			this.Children.Add(new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"});
 		}
 	}
 }

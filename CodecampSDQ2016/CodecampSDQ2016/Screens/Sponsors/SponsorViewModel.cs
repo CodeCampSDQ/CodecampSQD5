@@ -25,7 +25,7 @@ namespace CodecampSDQ2016
 
 		public override void NavigateTo ()
 		{
-			PullToRefreshEnabled = true;
+			PullToRefreshEnabled = false;
 
 			Header = "sd";
 

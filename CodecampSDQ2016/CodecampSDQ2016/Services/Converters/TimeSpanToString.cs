@@ -8,6 +8,9 @@ namespace CodecampSDQ2016
 		
 		public object Convert (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
+			if(targetType != typeof(TimeSpan))
+				return value;
+			
 			var timespan = (TimeSpan) value;
 
 			DateTime time = DateTime.Today.Add(timespan);
