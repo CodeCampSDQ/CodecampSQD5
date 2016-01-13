@@ -13,21 +13,10 @@ namespace CodecampSDQ2016
 
 		View CreateView ()
 		{
-			var builder = new RelativeBuilder();
-
-			var charlista = new Label
-			{
-				FontAttributes = FontAttributes.Bold,
-				FontSize = 18,
-				TextColor = Color.Black
-			};
-
-			charlista.SetBinding<Session>(Label.TextProperty, m => m.SpeakerName);
-
 			var sessionName = new Label
 			{
-				TextColor = Color.Gray,
-				FontSize = 12
+				TextColor = Color.Black,
+				FontSize = 14
 			};
 
 			var sessionNameContainer = new StackLayout
@@ -43,8 +32,9 @@ namespace CodecampSDQ2016
 
 			var lugar = new Label
 			{
-				TextColor = Color.FromHex("3498db"),
-				FontSize = 12
+				TextColor = Color.Gray,
+				FontSize = 12,
+//				Text = "Location"
 			};
 
 			lugar.SetBinding<Session>(Label.TextProperty, m => m.Location);
@@ -55,42 +45,36 @@ namespace CodecampSDQ2016
 				FontSize = 12
 			};
 
-			hora.SetBinding<Session>(Label.TextProperty, m => m.StartTime, BindingMode.Default, new TimeSpanToString());
+			hora.SetBinding<Session>(Label.TextProperty, m => m.Time, BindingMode.Default, new TimeSpanToString());
 
-			builder
-				.AddView(charlista)
-				.WithPadding(new Thickness(16,12,0,4));
-			
-			builder
-				.AddView(sessionNameContainer)
-				.BelowOf(charlista)
-				.ExpandViewToParentWidth()
-				.AlignLeft(charlista)
-				.WithPadding(new Thickness(0,8,0,0));
-
-			builder
-				.AddView(lugar)
-				.BelowOf(sessionNameContainer)
-				.AlignLeft(sessionNameContainer)
-				.WithPadding(new Thickness(0,10,0,0));
-			
-			builder
-				.AddView(new StackLayout
+			var stackLayout = new StackLayout
+			{
+				Padding = new Thickness(14,8,8,14),
+				Spacing = 8,
+				Children = 
+				{
+					new StackLayout
 					{
-						Padding = new Thickness(0,0,12,0),
+						Spacing = 8,
+						Orientation = StackOrientation.Horizontal,
 						Children = 
 						{
 							hora
 						}
-					})
-				.AlignTop(lugar)
-				.AlignParentRight()
-				.WithPadding(new Thickness(0,4,16,0));
+					},
+					new StackLayout
+					{
+						Spacing = 10,
+						Children = 
+						{
+							sessionNameContainer,
+							lugar
+						}
+					}
+				}
+			};
 
-			return builder
-				.ApplyConfiguration((p,v)=>{
-					p.Padding = new Thickness(10);
-			}).BuildLayout();
+			return stackLayout;
 		}
 	}
 }

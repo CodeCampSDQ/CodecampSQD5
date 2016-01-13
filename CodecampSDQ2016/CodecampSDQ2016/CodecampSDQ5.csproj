@@ -61,6 +61,9 @@
     <Compile Include="Screens\SpeakerDetails\SpeakerDetailsViewCell.cs" />
     <Compile Include="Services\Converters\TimeSpanToString.cs" />
     <Compile Include="Services\Converters\FromBinaryToImageDataSource.cs" />
+    <Compile Include="Screens\SessionDetails\SessionDetailViewModel.cs" />
+    <Compile Include="Screens\SessionDetails\SessionDetailScreen.cs" />
+    <Compile Include="Screens\SessionDetails\SessionDetailsViewCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
@@ -134,6 +137,7 @@
     <Folder Include="Screens\SpeakerDetails\" />
     <Folder Include="Screens\SocialApps\" />
     <Folder Include="Services\Converters\" />
+    <Folder Include="Screens\SessionDetails\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

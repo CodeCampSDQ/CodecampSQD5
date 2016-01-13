@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace CodecampSDQ2016
 {
@@ -16,9 +17,9 @@ namespace CodecampSDQ2016
         
 		public TimeSpan EndTime { get; set; }
 
-        public int SpeakerId { get; set; }
+		public string Time { get; set; }
 
-		public string SpeakerName { get; set; }
+        public int SpeakerId { get; set; }
 	}
 }
 

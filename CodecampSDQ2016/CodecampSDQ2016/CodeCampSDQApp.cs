@@ -11,7 +11,7 @@ namespace CodecampSDQ2016
 		{
             BlobCache.ApplicationName = "CodeCampSDQ5";
 
-			MainPage = new NavigationPage(new HomeScreen());
+			MainPage = new HomeScreen();
         }
 	}
 }

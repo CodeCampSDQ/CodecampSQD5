@@ -1,5 +1,5 @@
 using System;
-
+using System.Linq;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -17,6 +17,8 @@ namespace CodecampSDQ2016
 
 		public string SpeakerName { get; set; }
 
+		public string SessionTitle { get; set; }
+
 		public string Bio { get; set; }
 
 		public byte[] ProfilePicture { get; set; }
@@ -26,6 +28,8 @@ namespace CodecampSDQ2016
 		public string GitHubUrlDesc { get; set; }
 
 		public string SocialAppsDesc { get; set; }
+
+		public bool HasBio { get; set; }
 
 		public SpeakerDetailViewModel ()
 		{
@@ -57,11 +61,29 @@ namespace CodecampSDQ2016
 
 			Bio = speaker.Bio;
 
+			HasBio = !string.IsNullOrWhiteSpace(Bio);
+
 			SocialAppsDesc = "See me on";
 
-			var sessions = new List<Session>(await ApiService.GetAllSpeakerSessions(speaker.Id));
+			SessionTitle = "Charlas";
 
-			CharlasCount = String.Format("{0} Session(s)", sessions.Count);
+			var sect = await ApiService.GetAllSpeakerSessions(speaker.Id);
+
+			var filtered = sect.Select((sess)=>{
+
+				var startTime = DateTime.Today.Add(sess.StartTime);
+
+				var endTime = DateTime.Today.Add(sess.EndTime);
+
+				sess.Time = string.Format("{0} - {1}", startTime.ToString(("hh:mm tt")), endTime.ToString(("hh:mm tt")));
+
+				return sess;
+
+			});
+
+			var sessions = new List<Session>(filtered);
+
+			CharlasCount = "Biografia";
 
 			Sessions = new ObservableCollection<Session>(sessions);
 		}
