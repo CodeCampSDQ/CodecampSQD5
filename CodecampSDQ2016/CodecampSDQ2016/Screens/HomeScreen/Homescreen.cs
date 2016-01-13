@@ -20,7 +20,7 @@ namespace CodecampSDQ2016
 
 			this.Children.Add(new NavigationPage(new SessionScreen () { Title = "Charlas" , Icon = "sessions"}){Title = "Charlas", Icon = "sessions"});
 			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "speakers" });
-			this.Children.Add(new SponsorScreen () { Title = "Patrocinadores" , Icon = "sponsors" });
+			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Patrocinadores" , Icon = "sponsors" }){Icon = "sponsors", Title = "Patrocinadores"});
 //			this.Children.Add(new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"});
 		}
 	}

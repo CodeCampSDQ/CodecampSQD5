@@ -79,6 +79,7 @@ namespace CodecampSDQ2016
 
 			var descContainer = new StackLayout
 			{
+				Padding = new Thickness(0,0,12,0),
 				Children = 
 				{
 					descTitle,
@@ -131,6 +132,7 @@ namespace CodecampSDQ2016
 			};
 			
 			_relativeLayout = new RelativeLayout {
+				Padding = new Thickness(0,0,0,20),
 				Children = {
 					 {
 						sessionTitle,

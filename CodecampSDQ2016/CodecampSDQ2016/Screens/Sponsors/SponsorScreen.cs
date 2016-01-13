@@ -41,6 +41,7 @@ namespace CodecampSDQ2016
 
 			var listView = new ListView
 			{
+				VerticalOptions = LayoutOptions.FillAndExpand,
 				ItemTemplate = new DataTemplate(typeof(SponsorViewCell)),
 				RowHeight = 100
 //				IsPullToRefreshEnabled = true
@@ -89,6 +90,7 @@ namespace CodecampSDQ2016
 
 			return new StackLayout
 			{
+				BackgroundColor = Color.White,
 				Padding = new Thickness(0,32,0,0),
 				Children = 
 				{

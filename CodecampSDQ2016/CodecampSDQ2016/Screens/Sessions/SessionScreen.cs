@@ -42,6 +42,7 @@ namespace CodecampSDQ2016
 
 			var listView = new ListView
 			{
+				BackgroundColor = Color.White,
 				ItemTemplate = new DataTemplate(typeof(SessionViewCell)),
 				HasUnevenRows = true,
 				VerticalOptions = LayoutOptions.FillAndExpand
