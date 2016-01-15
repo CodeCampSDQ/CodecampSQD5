@@ -24,7 +24,7 @@ namespace CodecampSDQ2016
 			var sessionTitle = new Label
 			{
 				TextColor = Color.Black,
-				FontSize = 20,
+				FontSize = 18,
 				FontAttributes = FontAttributes.Bold
 			};
 
@@ -56,7 +56,7 @@ namespace CodecampSDQ2016
 
 			var time = new Label
 			{
-				TextColor = Color.Black,
+				TextColor = Color.FromHex("3498db"),
 				FontSize = 14
 			};
 

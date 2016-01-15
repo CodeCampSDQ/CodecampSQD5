@@ -29,15 +29,6 @@ namespace CodecampSDQ2016
 //
 //			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
 
-			var speakerName = new Label
-			{
-				TextColor = Color.Black,
-				FontSize = 20,
-				FontAttributes = FontAttributes.Bold
-			}; 
-
-			speakerName.SetBinding<SpeakerDetailViewModel>(Label.TextProperty, m => m.SpeakerName);
-
 			var biox = new Label
 			{
 				TextColor = Color.Gray,
@@ -120,7 +111,7 @@ namespace CodecampSDQ2016
 			var sessionTitle = new Label
 			{
 				FontAttributes = FontAttributes.Bold,
-				FontSize = 20,
+				FontSize = 18,
 				TextColor = Color.Black
 			};
 
