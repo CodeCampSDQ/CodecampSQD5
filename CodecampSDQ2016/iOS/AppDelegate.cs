@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace CodecampSDQ2016.iOS
 {
@@ -12,6 +13,8 @@ namespace CodecampSDQ2016.iOS
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init ();
+
+			ImageCircleRenderer.Init();
 
 			LoadApplication (new CodeCampSDQApp ());
 //

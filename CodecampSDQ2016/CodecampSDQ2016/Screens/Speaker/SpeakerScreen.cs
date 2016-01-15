@@ -44,7 +44,7 @@ namespace CodecampSDQ2016
 			{
 				BackgroundColor = Color.White,
 				ItemTemplate = new DataTemplate(typeof(SpeakerViewCell)),
-				RowHeight = 180,
+				RowHeight = 90,
 				IsPullToRefreshEnabled = true
 			};
 

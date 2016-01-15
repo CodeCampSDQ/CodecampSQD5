@@ -20,7 +20,7 @@ namespace CodecampSDQ2016
 
 		public string HeaderDescription { get; set; }
 
-		public bool IsLoading { get; set; }
+		public bool IsLoading { get; set; } = true;
 
 		public ICommand PullToRefreshCommand { get; set; }
 
@@ -43,7 +43,7 @@ namespace CodecampSDQ2016
 		{
 			var list = await ApiService.GetSpeakers();
 
-			Speakers = new ObservableCollection<Speaker>(list);
+			Speakers = new ObservableCollection<Speaker>(list.OrderBy(x => x.Name));
 
 			IsLoading = false;
 		}

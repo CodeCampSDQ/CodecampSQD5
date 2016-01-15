@@ -1,6 +1,7 @@
 using System;
 using Xamarin.Forms;
 using Marioneta;
+using ImageCircle.Forms.Plugin.Abstractions;
 
 namespace CodecampSDQ2016
 {
@@ -15,38 +16,40 @@ namespace CodecampSDQ2016
 		{
 			var builder = new RelativeBuilder();
 
-			var face = new Image
+			var face = new CircleImage
 			{
-				Aspect = Aspect.AspectFill
+				Aspect = Aspect.AspectFit,
+				BorderColor = Color.White,
+				BorderThickness = 3,
+				HeightRequest = 64,
+				WidthRequest = 64,
 			};
 
 			face.SetBinding<Speaker>(Image.SourceProperty, m => m.BinaryPhoto, BindingMode.Default, new FromBinaryToImageDataSource());
 
-			var shim = new BoxView
-			{
-				BackgroundColor = Color.Black,
-				Opacity = 0.4
+			var faceContainer = new StackLayout
+			{	Padding = new Thickness(12,12,20,12),
+				Children = 
+				{
+					face
+				}
 			};
 
 			var charlista = new Label
 			{
-				TextColor = Color.White,
-				FontSize = 26
+				TextColor = Color.Black,
+				FontSize = 20
 			};
 
 			charlista.SetBinding<Speaker>(Label.TextProperty, m => m.Name);
 
 			builder
-				.AddView(face)
-				.ExpandViewToParentXY();
-
-			builder
-				.AddView(shim)
-				.ExpandViewToParentXY();
+				.AddView(faceContainer);
 
 			builder
 				.AddView(charlista)
-				.AlignParentCenterXY();
+				.ToRightOf(faceContainer)
+				.AlignParentCenterVertical();
 
 			return builder.BuildLayout();
 		}

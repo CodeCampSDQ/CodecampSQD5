@@ -14,14 +14,15 @@ namespace CodecampSDQ2016
 		void SetBindings ()
 		{
 			Title = "CodeCampSDQ";
-
-			//Not binding to ViewModel
-//			this.SetBinding<HomeViewModel>(TabbedPage.ItemsSourceProperty, m => m.Tabs);
-
-			this.Children.Add(new NavigationPage(new SessionScreen () { Title = "Charlas" , Icon = "sessions"}){Title = "Charlas", Icon = "sessions"});
-			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "speakers" });
-			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Patrocinadores" , Icon = "sponsors" }){Icon = "sponsors", Title = "Patrocinadores"});
-//			this.Children.Add(new ContentPage () { Title = "Redes Sociales"  , Icon = "globe"});
+			this.Children.Add(new NavigationPage(new SessionScreen (){Title = "Charlas",Icon = "sessions"}){Title = "Charlas",Icon = "sessions",BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),
+				Color.Black,Color.Black),
+				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
+			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "speakers", 
+				BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),Color.Black,Color.Black), 
+				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
+			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Espónsores" , Icon = "sponsors" }){Icon = "sponsors", Title = "Espónsores",
+				BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),Color.Black,Color.Black), 
+				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
 		}
 	}
 }
