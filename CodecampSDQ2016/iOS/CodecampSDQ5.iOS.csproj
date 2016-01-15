@@ -210,6 +210,15 @@
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\ic_charlas_home.png" />
+    <BundleResource Include="Resources\ic_charlas_home%402x.png" />
+    <BundleResource Include="Resources\ic_charlas_home%403x.png" />
+    <BundleResource Include="Resources\ic_charlistas_home.png" />
+    <BundleResource Include="Resources\ic_charlistas_home%402x.png" />
+    <BundleResource Include="Resources\ic_charlistas_home%403x.png" />
+    <BundleResource Include="Resources\ic_patrocinadores_home.png" />
+    <BundleResource Include="Resources\ic_patrocinadores_home%402x.png" />
+    <BundleResource Include="Resources\ic_patrocinadores_home%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="Resources\iTunesArtwork.png" />

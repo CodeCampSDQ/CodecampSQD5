@@ -14,13 +14,13 @@ namespace CodecampSDQ2016
 		void SetBindings ()
 		{
 			Title = "CodeCampSDQ";
-			this.Children.Add(new NavigationPage(new SessionScreen (){Title = "Charlas",Icon = "sessions"}){Title = "Charlas",Icon = "sessions",BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),
+			this.Children.Add(new NavigationPage(new SessionScreen (){Title = "Charlas",Icon = "ic_charlas_home"}){Title = "Charlas",Icon = "ic_charlas_home",BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),
 				Color.Black,Color.Black),
 				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
-			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "speakers", 
+			this.Children.Add(new NavigationPage(new SpeakerScreen (){Title = "Charlistas"}){Title = "Charlistas" , Icon = "ic_charlistas_home", 
 				BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),Color.Black,Color.Black), 
 				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
-			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Espónsores" , Icon = "sponsors" }){Icon = "sponsors", Title = "Espónsores",
+			this.Children.Add(new NavigationPage(new SponsorScreen () { Title = "Espónsores" , Icon = "sponsors" }){Icon = "ic_patrocinadores_home", Title = "Espónsores",
 				BarBackgroundColor = Device.OnPlatform<Color>(Color.FromHex("3498db"),Color.Black,Color.Black), 
 				BarTextColor = Device.OnPlatform<Color>(Color.White,Color.Black,Color.Black)});
 		}
