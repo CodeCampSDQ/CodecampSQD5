@@ -60,7 +60,7 @@ namespace CodecampSDQ2016
 
 			TimeTitle = "Tiempo";
 
-			DescriptionTitle = "Descripcion";
+			DescriptionTitle = "Descripción";
 
 			LocationTitle = "Lugar";
 
