@@ -3,6 +3,7 @@ using System;
 using Xamarin.Forms;
 using Marioneta;
 using System.Threading.Tasks;
+using ImageCircle.Forms.Plugin.Abstractions;
 
 namespace CodecampSDQ2016
 {
@@ -21,13 +22,15 @@ namespace CodecampSDQ2016
 
 			BackgroundColor = Color.White;
 
-//			var image = new Image
-//			{
-//				HeightRequest = 200,
-//				Aspect = Aspect.AspectFill
-//			};
-//
-//			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
+			var image = new CircleImage
+			{
+				Aspect = Aspect.AspectFit,
+				BorderColor = Color.White,
+				BorderThickness = 3,
+				HeightRequest = 96,
+				WidthRequest = 96,
+			};
+			image.SetBinding<SpeakerDetailViewModel>(Image.SourceProperty, m => m.ProfilePicture, BindingMode.Default, new FromBinaryToImageDataSource());
 
 			var biox = new Label
 			{
@@ -149,12 +152,12 @@ namespace CodecampSDQ2016
 
 			_relativeLayout = new RelativeLayout {
 				Children = { 
-//					{
-//						image,
-//						Constraint.RelativeToParent (p => 0),
-//						Constraint.RelativeToParent (p => 0),
-//						Constraint.RelativeToParent (p => p.Width) 
-//					},
+					{
+						image,
+						Constraint.RelativeToParent (p => 0),
+						Constraint.RelativeToParent (p => 0),
+						Constraint.RelativeToParent (p => p.Width) 
+					},
 //					{
 //						view,
 //						Constraint.RelativeToParent (p => 0),
