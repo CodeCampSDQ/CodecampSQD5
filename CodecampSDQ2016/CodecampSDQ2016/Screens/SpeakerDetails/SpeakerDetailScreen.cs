@@ -199,8 +199,9 @@ namespace CodecampSDQ2016
 
 		async void OnSocialAppsSelected(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new SocialAppScreen(DataContext.Speaker));
-		
+			await Navigation.PushAsync (new SocialAppScreen (DataContext.Speaker));
+		}
+
 		public void OnPropertyChangedA (object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if(e.PropertyName.Equals ("Width") || e.PropertyName.Equals("Height"))
