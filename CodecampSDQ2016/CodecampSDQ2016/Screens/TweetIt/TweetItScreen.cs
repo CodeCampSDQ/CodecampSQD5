@@ -22,54 +22,71 @@ namespace CodecampSDQ2016
 			var speakerTitle = new Label
 			{
 				HorizontalOptions = LayoutOptions.StartAndExpand,
+				VerticalOptions = LayoutOptions.CenterAndExpand,
 				TextColor = Color.Gray,
-				FontSize = 14
+				FontSize = 12
 			};
 
 			speakerTitle.SetBinding<TweetItViewModel>(Label.TextProperty, m => m.SpeakerTitle);
 
-			var speakerDropDown = new BoxView
+			var speakerDropDown = new Label
 			{
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				Color = Color.Gray,
-				HeightRequest = 12
+				HorizontalOptions = LayoutOptions.EndAndExpand,
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				TextColor = Color.Black,
+				FontSize = 12
 			};
 
-//			speakerDropDown.SetBinding<TweetItViewModel>(BoxView.Ba, m => m.SpeakerDropDownSelected);
+			speakerDropDown.SetBinding<TweetItViewModel>(Label.TextProperty, m => m.SpeakerDropDownSelected);
 
 			var speakerContainer = new StackLayout
 			{
+				BackgroundColor = Color.FromHex("f1eef3"),
+				Orientation = StackOrientation.Horizontal,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
-				Padding = new Thickness(8),
+				Padding = new Thickness(16),
 				Children = 
 				{
 					speakerTitle,
 					speakerDropDown
 				}
 			};
-			
+
+			speakerContainer.GestureRecognizers.Add(
+				new TapGestureRecognizer
+				{
+					Command = new Command(()=>{
+						OnSpeakerContainerSelected();
+					})
+				}
+			);
+
 			var phraseTitle = new Label
 			{
 				HorizontalOptions = LayoutOptions.StartAndExpand,
+				VerticalOptions = LayoutOptions.CenterAndExpand,
 				TextColor = Color.Gray,
-				FontSize = 14
+				FontSize = 12
 			};
 
 			phraseTitle.SetBinding<TweetItViewModel>(Label.TextProperty, m => m.PhraseTitle);
 
-			var phrasedropDown = new BoxView
+			var phrasedropDown = new Label
 			{
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest = 12,
-				Color = Color.Gray
+				HorizontalOptions = LayoutOptions.EndAndExpand,
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				TextColor = Color.Black,
+				FontSize = 12
 			};
 
-//			phrasedropDown.SetBinding<TweetItViewModel>(Label.TextProperty, m => m.PhraseDropDownSelected);
+			phrasedropDown.SetBinding<TweetItViewModel>(Label.TextProperty, m => m.PhraseDropDownSelected);
 
 			var phraseContainer = new StackLayout
 			{
+				BackgroundColor = Color.FromHex("f1eef3"),
+				Orientation = StackOrientation.Horizontal,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
-				Padding = new Thickness(8),
+				Padding = new Thickness(16),
 				Children = 
 				{
 					phraseTitle,
@@ -77,12 +94,19 @@ namespace CodecampSDQ2016
 				}
 			};
 
+			phraseContainer.GestureRecognizers.Add(
+				new TapGestureRecognizer
+				{
+					Command = new Command(OnPhraseContainerSelected)
+				}
+			);
+
 			var tweetButton = new Button
 			{
-				WidthRequest = 200,
 				TextColor = Color.White,
-				HorizontalOptions = LayoutOptions.CenterAndExpand,
-				VerticalOptions = LayoutOptions.EndAndExpand
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				VerticalOptions = LayoutOptions.EndAndExpand,
+				BorderRadius = 0
 			};
 
 			tweetButton.SetBinding<TweetItViewModel>(Button.TextProperty, m => m.TweetItButtonText);
@@ -104,8 +128,7 @@ namespace CodecampSDQ2016
 					},
 					new StackLayout
 					{
-						Spacing = 20,
-						BackgroundColor = Color.FromHex("f1eef3"),
+						Spacing = 12,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 						VerticalOptions = LayoutOptions.CenterAndExpand,
 						Children =
@@ -116,7 +139,6 @@ namespace CodecampSDQ2016
 					},
 					new StackLayout
 					{
-						Padding = new Thickness(14),
 						Children = 
 						{
 							tweetButton
@@ -126,6 +148,20 @@ namespace CodecampSDQ2016
 			};
 
 			return screenLayout;
+		}
+
+		async void OnPhraseContainerSelected ()
+		{
+			var selected = await DisplayActionSheet("Charlistas", "Cancel", null, DataContext.PhraseList);
+
+			DataContext.PhraseDropDownSelected = selected;
+		}
+
+		async void OnSpeakerContainerSelected ()
+		{
+			var selected = await DisplayActionSheet("Charlistas", "Cancel", null, DataContext.SpeakersList);
+
+			DataContext.SpeakerDropDownSelected = selected;
 		}
 	}
 }

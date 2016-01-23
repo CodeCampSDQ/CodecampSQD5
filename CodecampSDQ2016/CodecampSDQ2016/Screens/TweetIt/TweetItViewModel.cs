@@ -1,10 +1,16 @@
 using System;
 using Xamarin.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CodecampSDQ2016
 {
 	public class TweetItViewModel : ViewModelBase
 	{
+		public string[] PhraseList { get; set; }
+
+		public string[] SpeakersList { get; set; }
+
 		public string WhatToDoDescription { get; set; }
 
 		public string SpeakerTitle { get; set; }
@@ -19,7 +25,7 @@ namespace CodecampSDQ2016
 
 		public Color TweetButtonColor { get; set; }
 
-		public override void NavigateTo ()
+		public async override void NavigateTo ()
 		{
 			SpeakerTitle = "Charlista";
 
@@ -34,6 +40,21 @@ namespace CodecampSDQ2016
 			TweetItButtonText = "Tweet";
 
 			TweetButtonColor = Color.FromHex("52B3D9");
+
+			var speakers = new List<Speaker>(await ApiService.GetSpeakers());
+
+			SpeakersList = speakers.Select<Speaker,string>((x)=>{
+
+				return x.Name;
+			}).ToArray();
+
+			PhraseList = new string[]
+			{
+				"Phrase 1.",
+				"Phrase 2.",
+				"Phrase 3.",
+				"Phrase 4."
+			};
 		}
 	}
 
