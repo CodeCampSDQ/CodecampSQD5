@@ -2,6 +2,7 @@ using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace CodecampSDQ2016
 {
@@ -24,6 +25,27 @@ namespace CodecampSDQ2016
 		public string TweetItButtonText { get; set; }
 
 		public Color TweetButtonColor { get; set; }
+
+		public ICommand TweetItCommand { get; set; }
+
+		ITwitterService _twitter;
+
+		public TweetItViewModel () : this(new TwitterService())
+		{
+			
+		}
+
+		public TweetItViewModel (ITwitterService twitter)
+		{
+			_twitter = twitter;
+
+			TweetItCommand = new Command(OnTweetIt);
+		}
+
+		void OnTweetIt ()
+		{
+			
+		}
 
 		public async override void NavigateTo ()
 		{

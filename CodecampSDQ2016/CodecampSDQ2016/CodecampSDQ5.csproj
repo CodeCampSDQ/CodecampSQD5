@@ -66,6 +66,8 @@
     <Compile Include="Screens\SessionDetails\SessionDetailsViewCell.cs" />
     <Compile Include="Screens\TweetIt\TweetItScreen.cs" />
     <Compile Include="Screens\TweetIt\TweetItViewModel.cs" />
+    <Compile Include="Services\Social\Twitter\ITwitterService.cs" />
+    <Compile Include="Services\Social\Twitter\TwitterService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
@@ -144,6 +146,8 @@
     <Folder Include="Services\Converters\" />
     <Folder Include="Screens\SessionDetails\" />
     <Folder Include="Screens\TweetIt\" />
+    <Folder Include="Services\Social\" />
+    <Folder Include="Services\Social\Twitter\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

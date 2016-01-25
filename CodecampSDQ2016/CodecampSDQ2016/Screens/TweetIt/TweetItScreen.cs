@@ -111,6 +111,7 @@ namespace CodecampSDQ2016
 
 			tweetButton.SetBinding<TweetItViewModel>(Button.TextProperty, m => m.TweetItButtonText);
 			tweetButton.SetBinding<TweetItViewModel>(Button.BackgroundColorProperty, m => m.TweetButtonColor);
+			tweetButton.SetBinding<TweetItViewModel>(Button.CommandProperty, m => m.TweetItCommand);
 
 			var screenLayout = new StackLayout
 			{
