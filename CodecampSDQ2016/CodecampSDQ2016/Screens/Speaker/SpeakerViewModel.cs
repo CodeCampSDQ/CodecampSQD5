@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Linq;
+using Plugin.Connectivity;
+using System.Collections.Generic;
 
 namespace CodecampSDQ2016
 {
@@ -32,23 +34,55 @@ namespace CodecampSDQ2016
 
 		async void OnPullToFreshCommand ()
 		{
-			IsLoading = true;
+			if(!CrossConnectivity.Current.IsConnected)
+			{
+				IsLoading = false;
+
+				return;
+			}
 
 			await ApiService.FetchData();
 
-			await GetDataFromCache();
+			await LoadData(null);
 		}
 
-		async Task GetDataFromCache ()
+		async Task LoadData (IEnumerable<Speaker> speakers)
 		{
-			var list = await ApiService.GetSpeakers();
+			IsLoading = true;
 
-			Speakers = new ObservableCollection<Speaker>(list.OrderBy(x => x.Name));
+			IEnumerable<Speaker> speakerList = new List<Speaker>();
+
+			if(speakers == null && CrossConnectivity.Current.IsConnected)
+			{
+				await ApiService.FetchData();
+
+				speakerList = await ApiService.GetSpeakers();
+			}else
+			{
+				speakerList = speakers;
+			}
+
+			IsLoading = true;
+
+			if(speakerList != null)
+			{
+				Speakers = new ObservableCollection<Speaker>(speakerList.OrderBy(x => x.Name));
+			}
 
 			IsLoading = false;
 		}
 
-		public async override void NavigateTo ()
+		public override async void OnConnectionAvailable ()
+		{
+			await LoadData(null);
+		}
+
+		public override async void OnReconnect ()
+		{
+			await LoadData(null);
+		}
+
+		public override async void NavigateTo ()
 		{
 			PullToRefreshEnabled = true;
 
@@ -58,7 +92,7 @@ namespace CodecampSDQ2016
 
 			HeaderDescription = "Meet the experts";
 
-			await GetDataFromCache();
+			await LoadData(await ApiService.GetSpeakersFromCache());
 		}
 	}
 }

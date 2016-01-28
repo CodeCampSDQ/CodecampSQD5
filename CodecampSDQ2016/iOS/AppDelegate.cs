@@ -16,7 +16,7 @@ namespace CodecampSDQ2016.iOS
 
 			ImageCircleRenderer.Init();
 
-			LoadApplication (new CodeCampSDQApp ());
+			LoadApplication (new App ());
 //
 //			UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = UIColor.White});
 //
