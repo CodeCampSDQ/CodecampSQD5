@@ -50,6 +50,26 @@ namespace CodecampSDQ2016
 				new Sponsor
 				{
 					Logo = "fundacionBalaguer"
+				},
+				new Sponsor
+				{
+					Logo = "hatuey"
+				},
+				new Sponsor
+				{
+					Logo = "intec"
+				},
+				new Sponsor
+				{
+					Logo = "marcos"
+				},
+				new Sponsor
+				{
+					Logo = "renma"
+				},
+				new Sponsor
+				{
+					Logo = "grupomejia"
 				}
 			};
 		}

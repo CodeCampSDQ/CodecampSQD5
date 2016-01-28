@@ -91,7 +91,7 @@ namespace CodecampSDQ2016
 			return new StackLayout
 			{
 				BackgroundColor = Color.White,
-				Padding = new Thickness(0,32,0,0),
+				Padding = new Thickness(0,0,0,0),
 				Children = 
 				{
 					listView
