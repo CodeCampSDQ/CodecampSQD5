@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace CodecampSDQ2016
 {
@@ -59,7 +60,7 @@ namespace CodecampSDQ2016
 		{ 
 			IsThereNetworkAvailable = true;
 
-			var speakers = new List<Speaker>(await ApiService.GetSpeakers());
+			var speakers = new List<Speaker>(await ApiService.GetSpeakers()).OrderBy(x => x.Name);
 
 			SpeakersList = speakers.Select<Speaker,string>((x)=>{
 
@@ -97,6 +98,8 @@ namespace CodecampSDQ2016
 			TweetItButtonText = "Tweet";
 
 			TweetButtonColor = Color.FromHex("3498db");
+
+			SpeakersList = new string[]{string.Empty};
 
 			PhraseList = new string[]
 			{
