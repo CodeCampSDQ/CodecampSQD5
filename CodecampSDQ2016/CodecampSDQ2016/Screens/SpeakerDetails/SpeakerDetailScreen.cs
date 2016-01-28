@@ -79,7 +79,7 @@ namespace CodecampSDQ2016
 
 			var sessionList = new ListView {
 				ItemTemplate = new DataTemplate (typeof(SessionViewCell)),
-				RowHeight = 100,
+				RowHeight = 110,
 //				HeightRequest = DataContext.Sessions.Count * 100
 			};
 
@@ -194,7 +194,10 @@ namespace CodecampSDQ2016
  			
 			_relativeLayout.PropertyChanged += OnPropertyChangedA;
 
-			return _relativeLayout;
+			return new ScrollView
+			{
+				Content = _relativeLayout
+			};
 		}
 
 		async void OnSocialAppsSelected(object sender, EventArgs e)
