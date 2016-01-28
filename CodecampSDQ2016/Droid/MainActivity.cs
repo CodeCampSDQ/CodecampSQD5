@@ -22,7 +22,7 @@ namespace CodecampSDQ2016.Droid
 
 			ImageCircleRenderer.Init();
 
-			LoadApplication (new CodeCampSDQApp ());
+			LoadApplication (new App ());
 		}
 	}
 }
