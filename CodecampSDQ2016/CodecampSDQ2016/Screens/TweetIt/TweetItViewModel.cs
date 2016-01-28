@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using System.Threading;
 
 namespace CodecampSDQ2016
 {
@@ -24,6 +25,8 @@ namespace CodecampSDQ2016
 
 		public string TweetItButtonText { get; set; }
 
+		public bool IsThereNetworkAvailable { get; set; }
+
 		public Color TweetButtonColor { get; set; }
 
 		public ICommand TweetItCommand { get; set; }
@@ -44,10 +47,42 @@ namespace CodecampSDQ2016
 
 		void OnTweetIt ()
 		{
-			
+			if(string.IsNullOrEmpty(PhraseDropDownSelected))
+				return;
+
+			var token = new CancellationTokenSource();
+
+			_twitter.TweetIt(PhraseDropDownSelected, token);
 		}
 
-		public async override void NavigateTo ()
+		public override async void OnConnectionAvailable ()
+		{ 
+			IsThereNetworkAvailable = true;
+
+			var speakers = new List<Speaker>(await ApiService.GetSpeakers());
+
+			SpeakersList = speakers.Select<Speaker,string>((x)=>{
+
+				return x.Name;
+			}).ToArray();
+		}
+
+		public override void OnConnectionLost ()
+		{
+			IsThereNetworkAvailable = false;
+		}
+
+		public override void OnReconnect ()
+		{
+			IsThereNetworkAvailable = true;
+		}
+
+		public override void OnConnectionNotAvailable ()
+		{
+			IsThereNetworkAvailable = true;
+		}
+
+		public override void NavigateTo ()
 		{
 			SpeakerTitle = "Charlista";
 
@@ -61,14 +96,7 @@ namespace CodecampSDQ2016
 
 			TweetItButtonText = "Tweet";
 
-			TweetButtonColor = Color.FromHex("52B3D9");
-
-			var speakers = new List<Speaker>(await ApiService.GetSpeakers());
-
-			SpeakersList = speakers.Select<Speaker,string>((x)=>{
-
-				return x.Name;
-			}).ToArray();
+			TweetButtonColor = Color.FromHex("3498db");
 
 			PhraseList = new string[]
 			{

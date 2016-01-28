@@ -9,7 +9,7 @@ namespace CodecampSDQ2016.Services.Cache
     {
         private const string SessionKey = "sessions";
         private const string SpeakersKey = "speakers";
-
+ 
         public static async Task SaveSessions(IEnumerable<Session> sessions)
         {
             await BlobCache.UserAccount.InsertObject(SessionKey, sessions);
@@ -32,6 +32,29 @@ namespace CodecampSDQ2016.Services.Cache
 				return sessions;
 			});
         }
+
+		public static async Task<bool> CheckIfEmpty()
+		{
+			return await Task.Run<bool>(async ()=>{
+
+				IEnumerable<Session> session = null;
+
+				IEnumerable<Speaker> speakers = null;
+
+				try
+				{
+					session = await GetSessions();
+
+					speakers = await GetSpeakers();
+
+				}
+				catch(KeyNotFoundException)
+				{
+				}
+
+				return (session == null || speakers == null);
+			});
+		}
 
         public static async Task SaveSpeakers(IEnumerable<Speaker> speakers)
         {

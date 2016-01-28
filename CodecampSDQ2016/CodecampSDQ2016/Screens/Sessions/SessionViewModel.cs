@@ -6,6 +6,7 @@ using CodecampSDQ2016.Services.Data;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Plugin.Connectivity;
 
 namespace CodecampSDQ2016
 {
@@ -32,14 +33,19 @@ namespace CodecampSDQ2016
 
 		async void OnPullToFreshCommand ()
 		{
-			IsLoading = true;
+			if(!CrossConnectivity.Current.IsConnected)
+			{
+				IsLoading = false;
 
+				return;
+			}
+	
 			await ApiService.FetchData();
 
-			await GetDataFromCache();
+			await LoadDataFromAPi(null);
 		}
 
-		public async override void NavigateTo ()
+		public override async void NavigateTo ()
 		{
 			PullToRefreshEnabled = true;
 
@@ -49,28 +55,59 @@ namespace CodecampSDQ2016
 
 			HeaderDescription = "Conference sessions led by industry experts.";
 
-			await GetDataFromCache();
+			await LoadDataFromCache();
 		}
 
-		async Task GetDataFromCache ()
+		async Task LoadDataFromCache ()
 		{
-			var session = await ApiService.GetSessions();
+			var session = await ApiService.GetSessionsFromCache();
 
-			var sorted = session.OrderBy(x => x.StartTime).Select((sess)=>{
+			await LoadDataFromAPi(session);
+		}
 
-				var startTime = DateTime.Today.Add(sess.StartTime);
+		public override async void OnConnectionAvailable ()
+		{
+			await LoadDataFromAPi(null);
+		}
 
-				var endTime = DateTime.Today.Add(sess.EndTime);
+		public override async void OnReconnect ()
+		{
+			await LoadDataFromAPi(null);
+		}
 
-				sess.Time = string.Format("{0} - {1}", startTime.ToString(("hh:mm tt")), endTime.ToString(("hh:mm tt")));
+		async Task LoadDataFromAPi (IEnumerable<Session> sessions)
+		{
+			IsLoading = true;
 
-				return sess;
+			IEnumerable<Session> session = new List<Session>();
 
-			});
+			if(sessions == null && CrossConnectivity.Current.IsConnected)
+			{
+				 await ApiService.FetchData();
 
-			Sessions = new ObservableCollection<Session>(sorted);
+				 session = await ApiService.GetSessions();
+			}
+			else
+				session = sessions;
 
-			IsLoading = (Sessions.Count < 0);
+			if(session != null)
+			{
+				var sorted = session.OrderBy(x => x.StartTime).Select((sess)=>{
+
+					var startTime = DateTime.Today.Add(sess.StartTime);
+
+					var endTime = DateTime.Today.Add(sess.EndTime);
+
+					sess.Time = string.Format("{0} - {1}", startTime.ToString(("hh:mm tt")), endTime.ToString(("hh:mm tt")));
+
+					return sess;
+
+				});
+
+				Sessions = new ObservableCollection<Session>(sorted);
+
+				IsLoading = false;
+			}
 		}
 	}
 }

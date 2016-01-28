@@ -1,11 +1,14 @@
 ﻿using System;
+using LinqToTwitter;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CodecampSDQ2016
 {
-	public class ITwitterService
+	public interface ITwitterService
 	{
-		public ITwitterService ()
-		{
-		}
+		void TweetIt(string phrase, CancellationTokenSource cancellationTokenSource);
 	}
 }

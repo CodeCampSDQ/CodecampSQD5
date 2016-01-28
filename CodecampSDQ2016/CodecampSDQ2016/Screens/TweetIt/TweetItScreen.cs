@@ -3,11 +3,11 @@ using Xamarin.Forms;
 
 namespace CodecampSDQ2016
 {
-	
 	public class TweetItScreen : Screen<TweetItViewModel>
 	{
 		public override View CreatePageContent ()
 		{
+			this.BackgroundColor = Color.White;
 
 			var whatToDo = new Label
 			{
@@ -112,6 +112,7 @@ namespace CodecampSDQ2016
 			tweetButton.SetBinding<TweetItViewModel>(Button.TextProperty, m => m.TweetItButtonText);
 			tweetButton.SetBinding<TweetItViewModel>(Button.BackgroundColorProperty, m => m.TweetButtonColor);
 			tweetButton.SetBinding<TweetItViewModel>(Button.CommandProperty, m => m.TweetItCommand);
+			tweetButton.SetBinding<TweetItViewModel>(Button.IsEnabledProperty,m => m.IsThereNetworkAvailable);
 
 			var screenLayout = new StackLayout
 			{
@@ -155,6 +156,7 @@ namespace CodecampSDQ2016
 		{
 			var selected = await DisplayActionSheet("Charlistas", "Cancel", null, DataContext.PhraseList);
 
+			if(selected != "Cancel")
 			DataContext.PhraseDropDownSelected = selected;
 		}
 
@@ -162,7 +164,8 @@ namespace CodecampSDQ2016
 		{
 			var selected = await DisplayActionSheet("Charlistas", "Cancel", null, DataContext.SpeakersList);
 
-			DataContext.SpeakerDropDownSelected = selected;
+			if(selected != "Cancel")
+				DataContext.SpeakerDropDownSelected = selected;
 		}
 	}
 }

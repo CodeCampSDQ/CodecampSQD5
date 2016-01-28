@@ -12,5 +12,6 @@ namespace CodecampSDQ2016
 
         public List<Session> Sessions { get; set; }
         public List<Speaker> Speakers { get; set; }
+//		public List<Sponsor> Sponsors { get; set; }
     }
 }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using CodecampSDQ2016.Services.Cache;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Plugin.Connectivity;
+using System.Net;
 
 namespace CodecampSDQ2016.Services.Data
 {
@@ -28,43 +30,49 @@ namespace CodecampSDQ2016.Services.Data
         /// <returns></returns>
         public async Task FetchData()
         {
-            var data = await _client.GetStringAsync("GetData");
+			try
+			{
+				var data = await _client.GetStringAsync("GetData");
 
-            if (string.IsNullOrWhiteSpace(data))
-                return;
-			
-//			var formattedData = data.Substring(1, data.Length - 2).Replace("\\","");
+				if (string.IsNullOrWhiteSpace(data))
+					return;
 
-			var apiData = JsonConvert.DeserializeObject<ApiDataDto>(data, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            });
+				//			var formattedData = data.Substring(1, data.Length - 2).Replace("\\","");
 
-            if (apiData != null)
-            {
-                _client.BaseAddress = null;
+				var apiData = JsonConvert.DeserializeObject<ApiDataDto>(data, new JsonSerializerSettings
+					{
+						NullValueHandling = NullValueHandling.Ignore
+					});
 
-                var sessions = apiData.Sessions;
+				if (apiData != null)
+				{
+					_client.BaseAddress = null;
 
-                var speakers = apiData.Speakers;
+					var sessions = apiData.Sessions;
 
-                //Process Speaker Image Url
-                foreach (var speaker in speakers)
-                {
-                    if(string.IsNullOrEmpty(speaker.PhotoUrl))
-                        continue;
+					var speakers = apiData.Speakers;
 
-                    var speakerImage = await _client.GetByteArrayAsync(speaker.PhotoUrl);
+					//Process Speaker Image Url
+					foreach (var speaker in speakers)
+					{
+						if(string.IsNullOrEmpty(speaker.PhotoUrl))
+							continue;
 
-                    speaker.BinaryPhoto = speakerImage;
-                }
+						var speakerImage = await _client.GetByteArrayAsync(speaker.PhotoUrl);
 
-                await GlobalCache.SaveSessions(sessions);
+						speaker.BinaryPhoto = speakerImage;
+					}
 
-                await GlobalCache.SaveSpeakers(speakers);
+					await GlobalCache.SaveSessions(sessions);
 
-				_client.BaseAddress = new Uri(BaseApiUrl);
-            }
+					await GlobalCache.SaveSpeakers(speakers);
+
+					_client.BaseAddress = new Uri(BaseApiUrl);
+				}
+			}catch(WebException e)
+			{
+				Debug.WriteLine(e.ToString());
+			}
         }
 
         /// <summary>
@@ -84,6 +92,16 @@ namespace CodecampSDQ2016.Services.Data
 
             return sessions;
         }
+
+		public async Task<IEnumerable<Session>> GetSessionsFromCache()
+		{ 
+			return await GlobalCache.GetSessions();
+		}
+
+		public async Task<IEnumerable<Speaker>> GetSpeakersFromCache()
+		{
+			return await GlobalCache.GetSpeakers();
+		}
 
         /// <summary>
         /// Get Session by Id from GlobalCache

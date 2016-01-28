@@ -3,6 +3,7 @@ using PropertyChanged;
 using System.ComponentModel;
 using CodecampSDQ2016.Services.Data;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 
 namespace CodecampSDQ2016
 {
@@ -12,10 +13,25 @@ namespace CodecampSDQ2016
 		protected readonly CodeCampSdqApi ApiService;
 
 		public event PropertyChangedEventHandler PropertyChanged;
-
+ 
 		public ViewModelBase ()
 		{
 			ApiService = new CodeCampSdqApi();
+
+			if(CrossConnectivity.Current.IsConnected)
+			{
+				OnConnectionAvailable();
+			}
+
+			CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+		}
+
+		void OnConnectivityChanged (object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+		{
+			if(e.IsConnected)
+				OnReconnect();
+			else
+				OnConnectionLost();
 		}
 
 		protected virtual void OnPropertyChanged (PropertyChangedEventArgs e)
@@ -27,6 +43,27 @@ namespace CodecampSDQ2016
 
 		public virtual void NavigateTo()
 		{
+			
+		}
+
+		public virtual void OnConnectionAvailable()
+		{
+			
+		}
+
+		public virtual void OnConnectionNotAvailable()
+		{
+			
+		}
+
+		public virtual void OnConnectionLost()
+		{
+			
+		}
+
+		public virtual void OnReconnect()
+		{
+			
 		}
 	}
 
