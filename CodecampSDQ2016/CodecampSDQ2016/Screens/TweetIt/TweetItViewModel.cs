@@ -10,6 +10,8 @@ namespace CodecampSDQ2016
 {
 	public class TweetItViewModel : ViewModelBase
 	{
+		public event EventHandler TwitterAppNotFound;
+
 		public string[] PhraseList { get; set; }
 
 		public string[] SpeakersList { get; set; }
@@ -53,7 +55,12 @@ namespace CodecampSDQ2016
 
 			var token = new CancellationTokenSource();
 
-			_twitter.TweetIt(PhraseDropDownSelected, token);
+			try{
+				_twitter.TweetIt(PhraseDropDownSelected, token);
+			}catch(Exception)
+			{
+				OnTwitterAppNotFound(null);
+			}
 		}
 
 		public override async void OnConnectionAvailable ()
@@ -101,13 +108,25 @@ namespace CodecampSDQ2016
 
 			SpeakersList = new string[]{string.Empty};
 
+			UpdatePhrases();
+		}
+
+		public void UpdatePhrases ()
+		{
 			PhraseList = new string[]
 			{
-				"Phrase 1.",
-				"Phrase 2.",
-				"Phrase 3.",
-				"Phrase 4."
+				$"Actualmente en la charla de {SpeakerDropDownSelected}",
+				$"Quiero ser como {SpeakerDropDownSelected}",
+				$"Como {SpeakerDropDownSelected}!!!!",
+				$"Jose es inteligente, Jose viene para la charla de {SpeakerDropDownSelected}",
 			};
+		}
+
+		protected virtual void OnTwitterAppNotFound (EventArgs e)
+		{
+			var handler = TwitterAppNotFound;
+			if (handler != null)
+				handler (this, e);
 		}
 	}
 
