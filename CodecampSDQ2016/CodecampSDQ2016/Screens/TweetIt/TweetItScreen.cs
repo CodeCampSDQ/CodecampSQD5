@@ -5,6 +5,16 @@ namespace CodecampSDQ2016
 {
 	public class TweetItScreen : Screen<TweetItViewModel>
 	{
+		public TweetItScreen ()
+		{
+			DataContext.TwitterAppNotFound += OnTwitterNotFound;
+		}
+
+		async void OnTwitterNotFound (object sender, EventArgs e)
+		{
+			await DisplayAlert("Error","Se requiere la aplicacion de twitter para esta funcionalidad","Ok");
+		}
+
 		public override View CreatePageContent ()
 		{
 			this.BackgroundColor = Color.White;
@@ -166,6 +176,8 @@ namespace CodecampSDQ2016
 
 			if(selected != "Cancel")
 				DataContext.SpeakerDropDownSelected = selected;
+
+			DataContext.UpdatePhrases();
 		}
 	}
 }
