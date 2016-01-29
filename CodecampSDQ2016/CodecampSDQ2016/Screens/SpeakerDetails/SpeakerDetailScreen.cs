@@ -167,7 +167,7 @@ namespace CodecampSDQ2016
 					{
 						container2,
 						Constraint.RelativeToParent (p => 10),
-						Constraint.RelativeToParent (p => 16),
+						Constraint.RelativeToParent (p => 96),
 						Constraint.RelativeToParent(p => p.Width)
 					}
 //					,{
