@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Plugin.Connectivity;
 using System.Net;
+using ModernHttpClient;
 
 namespace CodecampSDQ2016.Services.Data
 {
@@ -18,7 +19,7 @@ namespace CodecampSDQ2016.Services.Data
 
         public CodeCampSdqApi()
         {
-            _client = new HttpClient
+			_client = new HttpClient(new NativeMessageHandler())
             {
                 BaseAddress = new Uri(BaseApiUrl)
             };
