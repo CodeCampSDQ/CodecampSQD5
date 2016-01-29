@@ -250,12 +250,12 @@
     <BundleResource Include="Resources\ic_patrocinadores_home.png" />
     <BundleResource Include="Resources\ic_patrocinadores_home%402x.png" />
     <BundleResource Include="Resources\ic_patrocinadores_home%403x.png" />
-    <BundleResource Include="Resources\wifi%402x.png" /> 
+    <BundleResource Include="Resources\wifi%402x.png" />
     <BundleResource Include="Resources\hatuey.png" />
     <BundleResource Include="Resources\intec.png" />
     <BundleResource Include="Resources\marcos.png" />
     <BundleResource Include="Resources\renma.png" />
-    <BundleResource Include="Resources\grupomejia.png" /> 
+    <BundleResource Include="Resources\grupomejia.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="Resources\iTunesArtwork.png" />
