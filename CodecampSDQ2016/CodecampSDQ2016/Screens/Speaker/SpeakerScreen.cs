@@ -39,6 +39,18 @@ namespace CodecampSDQ2016
 //			};
 //
 //			headerDescription.SetBinding<SpeakerViewModel>(Label.TextProperty, m => m.HeaderDescription);
+			var progress = new ActivityIndicator
+			{
+				Color = Color.Red,
+				IsRunning = true
+			};
+
+			Device.OnPlatform(Android:()=>{
+
+				progress.IsVisible = true;
+			});
+
+			progress.SetBinding<SessionViewModel>(ActivityIndicator.IsRunningProperty, m => m.IsLoading);
 
 			var listView = new ListView
 			{
@@ -95,7 +107,26 @@ namespace CodecampSDQ2016
 //				}
 //			};
 
-			return listView;
+			return new RelativeLayout
+			{
+				Children = 
+				{
+					{
+						listView,
+						Constraint.RelativeToParent(p => 0),
+						Constraint.RelativeToParent(p => 0),
+						Constraint.RelativeToParent(p => p.Width),
+						Constraint.RelativeToParent(p => p.Height)
+					},
+					{
+						progress,
+						Constraint.RelativeToParent(p => p.Width / 2 - 22),
+						Constraint.RelativeToParent(p => p.Height / 2 - 22),
+						Constraint.RelativeToParent(p => 44),
+						Constraint.RelativeToParent(p => 44)
+					}
+				}
+			};
 		}
 
 		async Task SelectedSpeakerCommand (object selectedItem)
